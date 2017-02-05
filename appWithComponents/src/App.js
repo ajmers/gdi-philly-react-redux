@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GroceryItem from './grocery-item';
 import logo from './logo.svg';
 import './App.css';
 
@@ -22,6 +23,16 @@ class App extends Component {
     groceryList.push(currentItem);
     this.setState({ groceryList, currentItem: '' });
   };
+
+  onDeleteGroceryItem = (item) => {
+    const { groceryList } = this.state;
+    const index = groceryList.indexOf(item);
+    if (index > -1) {
+      groceryList.splice(index,1);
+    }
+    this.setState({ groceryList });
+  }
+  
   render() {
     var { groceryList, currentItem } = this.state;
     return (
@@ -37,7 +48,9 @@ class App extends Component {
 
         <div className='grocery-list'>
           <ol>
-        {groceryList.map(item => (<li>{item}</li>))}
+            {groceryList.map((item, i) => (
+                <GroceryItem onDelete={this.onDeleteGroceryItem} item={item} key={i}/>)
+            )}
           </ol>
         </div>
       </div>

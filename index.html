@@ -299,7 +299,7 @@
                     <h3>ES6</h3>
                     <h2>Array methods - map</h2>
                     <p>A concise way of looping through collections that will come in handy!</p>
-                    <p>For loop:</p>
+                    <p><code>for</code> loop:</p>
 <pre class="fragment"><code contenteditable class="javascript">
   var array = ["javascript", "html", "css"]; 
   for (var i = 0; i < array.length; i++) {
@@ -352,6 +352,29 @@
 </code></pre>
 
                 </section>
+
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Answer</h2>
+                    <p>Use the <code>map</code> method, arrow functions, and template strings to take
+                    an array of names and return an array of numbered < li>s:
+
+<pre class="fragment"><code contenteditable class="javascript">
+  var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
+  var listNames = (array) => {
+    return (
+      array.map((name, index) => (<li>{index + 1}. {name}));
+    );
+ }
+  
+  // ["<li>1. Alma </li>", 
+  //    "<li>2. Alexander </li>", 
+  //    "<li>3. Duane </li>", 
+  //    "<li>4. Gerard </li>", 
+  //    "<li>5. Lindsay </li>"]
+</code></pre>
+
+                </section>
                 
                 <section>
                     <h3>ES6</h3>
@@ -382,6 +405,11 @@
 
 </code></pre>
 
+                </section>
+
+                <section>
+                    <h2>Stretch break!</h2>
+                    <img src="img/cat_stretch.jpg" alt="kitty!" />
                 </section>
                 
                 <section>
@@ -423,29 +451,59 @@ class App extends Component {
   }
 }
 </code></pre>
+                </section>
 
+                <section>
+                  <h3>JSX</h3>
+                  <p>JSX looks a lot like HTML, but uses some of its own syntax & attribute names</p>
+                  <ul>
+                    <li><code>className</code> instead of <code>class</code></li>
+                    <li>Event names: <code>onClick, onKeyUp, onChange</code> take care of cross-browser compatibility</li>
+                  </ul>
                 </section>
                 
-                <section>
-                    <h3>Props</h3>
-                </section>
                 
                 <section>
-                    <h3>State</h3>
+                  <h3>Props</h3>
+                  <p>What are the props being passed to this React component?</p>
+                  <img src="img/props.png" alt="React Props" />
                 </section>
+
+                <section>
+                  <h3>Style: a special prop</h3>
+                  <p>React components accept a special <code>style</code> prop, which can be used in place of SASS/CSS stylesheets.</p>
+                  <p>Note:</p>
+                  <ul>
+                    <li>camel-cased properties</li>
+                    <li>doesn't take care of browser prefixes</li>
+                    <li>need <code>{}</code> JavaScript evaluation with <br/>
+                      a style object { ...properties } inside </li>
+                  </ul>                  
+                </section>
+                <section>
+                  <h3>Style: a special prop</h3>
+                  <img src="img/style-prop.png" alt="Style prop" />
+                </section>
+
                 
                 <section>
-                    <h3>Let's Develop It</h3>
-                    <p>Task instructions might go here</p>
-                    <p><span class="green">BONUS</span>: Finished early? Try this.</p>
-                    <pre class="fragment"><code contenteditable class="javascript">
-    Code solution might go here
-                    </code></pre>
+                  <h3>Components</h3>
+                  <p>Reusable Components are the building block of React</p>
+                  <ul>
+                    <li>These can be small style components, like styled buttons, section headers, form items that will be used throughout your app;</li>
+                    <li>or app-specific components that are used in only one area, but repeated</li>                  
                 </section>
+
+             
+                
                 <section>
-                    <h2>Stretch break!</h2>
-                    <img src="img/cat_stretch.jpg" alt="kitty!" />
+                  <h3>Let's Develop It</h3>
+                  <p>Use the generated app in <code>petDirectory</code> to generate a list of pet profiles.</p>
+                  <p>Some ideas:</p>
+                  <ul>
+                    <li>
                 </section>
+
                 <!-- End of class -->
                 <section>
                     <h3>Summary</h3>
