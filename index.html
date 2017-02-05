@@ -201,17 +201,309 @@
                 </section>
 
                 <section>
-                    <h3>Let's Develop It</h3>
-                    <p>Task instructions might go here</p>
-                    <p><span class="green">BONUS</span>: Finished early? Try this.</p>
-                    <pre class="fragment"><code contenteditable class="javascript">
-    Code solution might go here
-                    </code></pre>
+                    <h3>ES6</h3>
+                    <ul>
+                      <li>Next step in evolution of Javascript</li>
+                      <li>Also known as ES2015</li>
+                      <li>Natively supports features that had previously been covered by libraries (underscore.js, Coffeescript, q)</li>
+                    </ul>
                 </section>
+
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Template strings</h2>
+                    <p>Don't need to concatenate strings and variables <br/> with <code>+</code> anymore</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var baseUrl = "http://api.sample-app.com";
+  var companyId = "sears";
+  var productName = "dishwasher";
+  var endpointUrl = `${baseUrl}/company/${companyId}/product/${productName}`;
+</code></pre>
+                </section>
+            
+
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Destructuring Syntax</h2>
+                    <p>How do we get values out of an object to work with them?</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var pet = {
+    type: "cat",
+    name: "Pete",
+    age: "3",
+    color: "tabby"
+  };
+
+  function printNametagForPet(pet) {
+    var name = pet.name;
+    var age = pet.age;
+    var color = pet.color;
+    var type = pet.type;    
+    console.log(`This is a nametag for a pet ${type} named ${name}, 
+      who is ${age} years old and ${color} colored.`);
+  }
+</code></pre>
+                </section>
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Destructuring Syntax</h2>
+<pre class="fragment"><code contenteditable class="javascript">
+  var pet = {
+    type: "cat",
+    name: "Pete",
+    age: "3",
+    color: "tabby"
+  };
+
+  function printNametagForPet(pet) {
+    var { name, type, color, age } = pet;
+    console.log(`This is a nametag for a pet ${type} named ${name}, 
+      who is ${age} years old and ${color} colored.`);
+  }
+</code></pre>
+                </section>
+                
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Destructuring Syntax</h2>
+                    <p>Destructuring works with arrays too.</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var list = ['squirrel', 'bear', 'fox'];
+  function printThirdAnimal(listOf3Animals) {
+    var [ first, second, third ] = list;
+    console.log(`The third animal in the list was a ${third}`);
+  }
+</code></pre>
+                </section>
+                
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Arrow functions</h2>
+                    <p>For when you get tired of writing <code>function</code></p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var clickHandler = function (e) {
+    e.preventDefault();
+    console.log("Button clicked");
+  }
+</code></pre>
+
+<pre class="fragment"><code contenteditable class="javascript">
+  var clickHandler = (e) => {
+    e.preventDefault();
+    console.log("Button clicked");
+  }
+</code></pre>
+                </section>
+
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Array methods - map</h2>
+                    <p>A concise way of looping through collections that will come in handy!</p>
+                    <p><code>for</code> loop:</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var array = ["javascript", "html", "css"]; 
+  for (var i = 0; i < array.length; i++) {
+    var item = array[i];
+    console.log("On day " + i + " of class we will cover " + item);  
+  }
+</code></pre>
+                    
+                    <p>ES6 Array.map</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var array = ["javascript", "html", "css"]; 
+  array.map(function (item, i) {
+    console.log("On day " + i + " of class we will cover " + item);  
+  })
+</code></pre>
+                </section>
+                
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Array methods - map</h2>
+                    <p>Array.map returns a new array of the results</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var array = [1, 2, 3, 4, 5]; 
+  array.map(function (i) {
+    return "<li>line " + i + "</li>";
+  });
+  // ["<li>line 1</li>", "<li>line 2</li>", "<li>line 3</li>", 
+  // "<li>line 4</li>", "<li>line 5</li>"]
+</code></pre>
+
+                </section>
+                
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Your turn!</h2>
+                    <p>Use the <code>map</code> method, arrow functions, and template strings to take
+                    an array of names and return an array of numbered < li>s:
+
+<pre class="fragment"><code contenteditable class="javascript">
+  var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
+  var listNames = (array) => {
+    // your code here
+  }
+  
+  // ["<li>1. Alma </li>", 
+  //    "<li>2. Alexander </li>", 
+  //    "<li>3. Duane </li>", 
+  //    "<li>4. Gerard </li>", 
+  //    "<li>5. Lindsay </li>"]
+</code></pre>
+
+                </section>
+
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Answer</h2>
+                    <p>Use the <code>map</code> method, arrow functions, and template strings to take
+                    an array of names and return an array of numbered < li>s:
+
+<pre class="fragment"><code contenteditable class="javascript">
+  var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
+  var listNames = (array) => {
+    return (
+      array.map((name, index) => (<li>{index + 1}. {name}));
+    );
+ }
+  
+  // ["<li>1. Alma </li>", 
+  //    "<li>2. Alexander </li>", 
+  //    "<li>3. Duane </li>", 
+  //    "<li>4. Gerard </li>", 
+  //    "<li>5. Lindsay </li>"]
+</code></pre>
+
+                </section>
+                
+                <section>
+                    <h3>ES6</h3>
+                    <h2><code>let</code> and <code>const</code></h2>
+                    <ul>
+                      <li>Use in place of generic "var"</li>
+                      <li>Use <code>const</code> if the variable should be a constant</li>
+                      <li>Use <code>let</code> if the variable can be modified</li>
+                      <li><code>let</code> and <code>const</code> are block-scoped, not function-scoped</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Modules</h2>
+                    <p>ES6 natively supports modules, so we don't need RequireJS, CommonJS, etc</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  export var port = 3000
+  export function getAccounts(url) {
+    ...
+  }
+
+</code></pre>
+
+<pre class="fragment"><code contenteditable class="javascript">
+  import { port, getAccounts } from 'module'
+  console.log(port) // 3000
+
+</code></pre>
+
+                </section>
+
                 <section>
                     <h2>Stretch break!</h2>
                     <img src="img/cat_stretch.jpg" alt="kitty!" />
                 </section>
+                
+                <section>
+                    <h3>React!</h3>
+                </section>
+                
+                <section>
+                    <h3>Starting a React app</h3>
+                    <a href="https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started">Facebook's create-react-app</a>
+                    <ul>
+                      <li> Takes care of transpiling ES6, JSX</li>
+                      <li> Creates a development server so we get hot-reloading for free!</li>
+                    </ul>
+
+<pre class="fragment"><code contenteditable class="javascript">
+$ npm install -g create-react-app
+$ create-react-app my-app
+
+</code></pre>
+
+                </section>
+
+                <section>
+                    <h3>JSX</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h2>Welcome to React</h2>
+        </div>
+        <p className="App-intro">
+          To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
+      </div>
+    );
+  }
+}
+</code></pre>
+                </section>
+
+                <section>
+                  <h3>JSX</h3>
+                  <p>JSX looks a lot like HTML, but uses some of its own syntax & attribute names</p>
+                  <ul>
+                    <li><code>className</code> instead of <code>class</code></li>
+                    <li>Event names: <code>onClick, onKeyUp, onChange</code> take care of cross-browser compatibility</li>
+                  </ul>
+                </section>
+                
+                
+                <section>
+                  <h3>Props</h3>
+                  <p>What are the props being passed to this React component?</p>
+                  <img src="img/props.png" alt="React Props" />
+                </section>
+
+                <section>
+                  <h3>Style: a special prop</h3>
+                  <p>React components accept a special <code>style</code> prop, which can be used in place of SASS/CSS stylesheets.</p>
+                  <p>Note:</p>
+                  <ul>
+                    <li>camel-cased properties</li>
+                    <li>doesn't take care of browser prefixes</li>
+                    <li>need <code>{}</code> JavaScript evaluation with <br/>
+                      a style object { ...properties } inside </li>
+                  </ul>                  
+                </section>
+                <section>
+                  <h3>Style: a special prop</h3>
+                  <img src="img/style-prop.png" alt="Style prop" />
+                </section>
+
+                
+                <section>
+                  <h3>Components</h3>
+                  <p>Reusable Components are the building block of React</p>
+                  <ul>
+                    <li>These can be small style components, like styled buttons, section headers, form items that will be used throughout your app;</li>
+                    <li>or app-specific components that are used in only one area, but repeated</li>                  
+                </section>
+
+             
+                
+                <section>
+                  <h3>Let's Develop It</h3>
+                  <p>Use the generated app in <code>petDirectory</code> to generate a list of pet profiles.</p>
+                  <p>Some ideas:</p>
+                  <ul>
+                    <li>
+                </section>
+
                 <!-- End of class -->
                 <section>
                     <h3>Summary</h3>
