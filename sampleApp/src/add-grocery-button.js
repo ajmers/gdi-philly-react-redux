@@ -31,8 +31,8 @@ class App extends Component {
           <h2>Welcome to Grocery List</h2>
         </div>
         <div className='add-grocery-item'>
-        <input value={currentItem} className='add-grocery-item__input' onChange={this.groceryChanged}></input>
-        <button onClick={this.onAddGroceryItem} className='add-grocery-item__button'>Add Grocery</button>
+          <input className='add-grocery-item__input' onKeyUp={this.groceryChanged} ></input>
+          <button onClick={this.onAddGroceryItem} className='add-grocery-item__button'>Add Grocery</button>
         </div>
 
         <div className='grocery-list'>
