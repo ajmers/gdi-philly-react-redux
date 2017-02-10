@@ -102,9 +102,8 @@
                   <h3>What we will cover: Part 2</h3>
                   <ul>
                     <li class ="fragment">Redux - what is it?</li>
-                    <li class ="fragment">Benefits of Redux</li>
-                    <li class ="fragment">The Redux Cycle</li>
                     <li class ="fragment">State Tree</li>
+                    <li class ="fragment">The Redux Cycle</li>
                     <li class ="fragment">Action Creators</li>
                     <li class ="fragment">Reducers</li>
                     <li class ="fragment">"Connected" Views</li>
@@ -123,7 +122,19 @@
                 <section>
                   <h3>Redux - What is it</h3>
                   <p>Redux is a predictable state container for JavaScript apps.</p>
+           
+                    <!-- http://redux.js.org/ -->
+                </section>
+
+                <section>
+                  <h3>Redux - What is it</h3>
+         
                   <p>One-way data flow: components don't directly modify their state or other components' states: they simply tell the 'store' (the thing that manages application state) what change they want to make, and the store manages telling the views to update</p>
+                    <!-- http://redux.js.org/ -->
+                </section>
+
+       <section>
+                  <h3>Redux - What is it</h3>
                   <p>Redux works well with React because React elements automatically know to re-render if one of their 'props' changes value.</p>
                     <!-- http://redux.js.org/ -->
                 </section>
@@ -132,42 +143,135 @@
                   <h3>Redux - What does it look like?</h3>
                     <p>
                     <ul>
-                      <li>Single data store describes entire application state</li>
+                      <li class='fragment'>Single data store describes entire application state (no 'models' being passed around)</li>
+                      <li class='fragment'>In React files, event handlers describe user interactions</li>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleSubmitClick = e => {
+      this.props.submitButtonClicked();
+    };
+    render() {
+      <button onClick={this.handleSubmitClick}>Submit</button>
+    }
+</code></pre>         
+                      <li class='fragment'>Business logic happens elsewhere (in <strong>action creators</strong>, if you're curious! More on that later!)</li>
                     </ul>
                 </section>
-                                
+
                 <section>
-                    <h3>ES6</h3>
-                    <h2>Destructuring Syntax</h2>
-                    <p>Destructuring works with arrays too.</p>
+                  <h3>State tree</h3>
+                  <p>The <strong>state tree</strong> describes the state of the application</p>
+                  <ul>
+                    <li>This includes visual elements as well as data</li>
+                  </ul>
+                  <img src="img/redux-state-tree.png"/>
+                </section>
+
+                <section>
+                  <h3>The Redux Cycle</h3>
+                  <ul>
+                    <li class='fragment'>React components dispatch <strong>'actions' describing the user interaction</strong></li>
+                    <li class='fragment'><strong>Redux store</strong> listens for actions and returns an <strong>updated copy of the State Tree</strong>, based on data from actions</li>
+                    <li class='fragment'>React components listen for updates to their <strong>props</strong> and rerender if anything changes</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Redux cycle: Actions</h3>
 <pre class="fragment"><code contenteditable class="javascript">
-  var list = ['squirrel', 'bear', 'fox'];
-  function printThirdAnimal(listOf3Animals) {
-    var [ first, second, third ] = list;
-    console.log(`The third animal in the list was a ${third}`);
-  }
+    handleMenuItemClicked = e => { // 'inbox' was clicked
+      const { item, menuItemClicked } = this.props;
+      menuItemClicked(item);
+    };
+</code></pre>
+
+<pre class="fragment"><code contenteditable class="javascript">
+    // Meanwhile, in menuActions.js
+    menuItemClicked = (item) => {
+      return {
+        type: "MENU_ITEM_CLICKED",
+        data: { currentItem: item },
+      }
+    };
 </code></pre>
                 </section>
                 
                 <section>
-                    <h3>ES6</h3>
-                    <h2>Arrow functions</h2>
-                    <p>For when you get tired of writing <code>function</code></p>
+                <h3>Redux cycle: Actions</h3>
 <pre class="fragment"><code contenteditable class="javascript">
-  var clickHandler = function (e) {
-    e.preventDefault();
-    console.log("Button clicked");
-  }
+    handleLogoutClick = () => {
+      const { userLoggedOut } = this.props;
+      userLoggedOut();
+    }
 </code></pre>
-
 <pre class="fragment"><code contenteditable class="javascript">
-  var clickHandler = (e) => {
-    e.preventDefault();
-    console.log("Button clicked");
-  }
+    // Meanwhile, in userActions.js
+    userLoggedOut = () => {
+      return {
+        type: "USER_LOGGED_OUT",
+      }
+    };
 </code></pre>
                 </section>
 
+                <section>
+                  <h3>Redux cycle: Actions</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleDeleteItem = () => {
+      const { itemDeleted, itemId } = this.props;
+      itemDeleted(itemId);
+    }
+</code></pre>
+<pre class="fragment"><code contenteditable class="javascript">
+    // Meanwhile, in itemActions.js
+    itemLoggedOut = (itemId) => {
+      return {
+        type: "ITEM_DELETED",
+        data: { id: itemId },
+      };
+    };
+</code></pre>
+                </section>
+
+                <section>
+                  <h3>Reducers</h3>
+                  <p><strong>Reducers</strong> are functions that take <strong>state</strong> and an <strong>action</strong> and return a <strong>new state</strong>
+
+<pre class="fragment"><code contenteditable class="javascript">
+function usersReducer(state = {}, action) {
+  switch (action.type) {
+    case 'LOGGED_IN':
+      return Object.assign(state, {
+        loggedIn: true
+      });
+    case 'LOGGED_OUT':
+      return Object.assign(state, {
+        loggedIn: false
+      });
+    default:
+      return state;
+  }
+}
+  </code></pre>
+                </section>
+
+                <section>
+                  <h3>Redux-thunk: Actions with Side Effects</h3>
+                  <p><strong>Side effects</strong> can be handled by Redux Action Creators</p>
+                  <ul>
+                    <li>API Calls</li>
+                    <li>Dispatch other actions</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Redux-thunk: Actions with Side Effects</h3>
+                  <ul>
+                    <li>Middleware 
+                    <li>Redux-thunk action creators can return a normal action OR a function</li>
+                </section>
+
+
+                
                 <section>
                     <h3>ES6</h3>
                     <h2>Array methods - map</h2>
