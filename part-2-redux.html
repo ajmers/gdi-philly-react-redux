@@ -117,11 +117,23 @@
                   <h3>React - Review</h3>
               
                 </section>
+
                 
-                
+                <!-- <section> -->
+                <!--   <h3>Approaching Redux</h3> -->
+                <!--   <ul> -->
+                <!--     <li>Don't worry about remembering every function name or implementation detail - copy and paste!</li> -->
+                <!--     <li>Redux and React have small APIs - Redux only has about 10 functions to use - but it may seem overwhelming</li> http://redux.js.org/docs/api/ -->
+                <!--   <//ul> -->
+           
+                <!--     <\!-- http://redux.js.org/ -\-> -->
+                <!-- </section> -->
+
                 <section>
                   <h3>Redux - What is it</h3>
                   <p>Redux is a predictable state container for JavaScript apps.</p>
+                  <p>More <strong>highly recommended</strong> resources for Redux:</p>
+                  <a href="https://egghead.io/courses/getting-started-with-redux">Egghead.io - Dan Abramov, creator of Redux, explains in 2 hrs</a>
            
                     <!-- http://redux.js.org/ -->
                 </section>
@@ -129,7 +141,12 @@
                 <section>
                   <h3>Redux - What is it</h3>
          
-                  <p>One-way data flow: components don't directly modify their state or other components' states: they simply tell the 'store' (the thing that manages application state) what change they want to make, and the store manages telling the views to update</p>
+                  <p>One-way data flow: </p>
+                  <ul>
+                    <li>components don't directly modify their state or other components' states:</li>
+                    <li>they simply tell the 'store' (the thing that manages application state) what change they want to make,</li>
+                    <li>and the store manages telling the views to update</li>
+                  </ul>
                     <!-- http://redux.js.org/ -->
                 </section>
 
@@ -143,7 +160,7 @@
                   <h3>Redux - What does it look like?</h3>
                     <p>
                     <ul>
-                      <li class='fragment'>Single data store describes entire application state (no 'models' being passed around)</li>
+                      <li class='fragment'>Single data store describes entire application state (no individual 'models')</li>
                       <li class='fragment'>In React files, event handlers describe user interactions</li>
 <pre class="fragment"><code contenteditable class="javascript">
     handleSubmitClick = e => {
@@ -158,12 +175,18 @@
                 </section>
 
                 <section>
+                  <h3>The Redux Cycle</h3>
+                  <img width="80%" src="img/redux-cycle-basic.png"/>
+                </section>
+
+
+                <section>
                   <h3>State tree</h3>
                   <p>The <strong>state tree</strong> describes the state of the application</p>
                   <ul>
                     <li>This includes visual elements as well as data</li>
                   </ul>
-                  <img src="img/redux-state-tree.png"/>
+                  <img width="80%" src="img/redux-state-tree.png"/>
                 </section>
 
                 <section>
@@ -174,7 +197,7 @@
                     <li class='fragment'>React components listen for updates to their <strong>props</strong> and rerender if anything changes</li>
                   </ul>
                 </section>
-
+ 
                 <section>
                   <h3>Redux cycle: Actions</h3>
 <pre class="fragment"><code contenteditable class="javascript">
@@ -240,13 +263,15 @@
 function usersReducer(state = {}, action) {
   switch (action.type) {
     case 'LOGGED_IN':
-      return Object.assign(state, {
+      return {
+        ...state,
         loggedIn: true
-      });
+      };
     case 'LOGGED_OUT':
-      return Object.assign(state, {
+      return {
+        ...state,
         loggedIn: false
-      });
+      };
     default:
       return state;
   }
@@ -255,132 +280,40 @@ function usersReducer(state = {}, action) {
                 </section>
 
                 <section>
-                  <h3>Redux-thunk: Actions with Side Effects</h3>
-                  <p><strong>Side effects</strong> can be handled by Redux Action Creators</p>
+                  <h3>Unpacking Reducers</h3>
                   <ul>
-                    <li>API Calls</li>
-                    <li>Dispatch other actions</li>
+                    <li class="fragment">Reducers must be <strong>pure functions with no side effects</strong></li>
+                    <li class="fragment">The reducer function is what defines how the new state should look, but we can't actually <strong>modify</strong> the old state</li>
+                    <li class="fragment">A reducer takes the <strong>old state object</strong>, and based on the <strong>action</strong>, returns a <strong>new state object</strong></li>
+                    
+                    <li class="fragment"><strong>Spread syntax</strong> makes a copy of the old state, and modifies that with the new properties</li>
                   </ul>
                 </section>
 
                 <section>
-                  <h3>Redux-thunk: Actions with Side Effects</h3>
-                  <ul>
-                    <li>Middleware 
-                    <li>Redux-thunk action creators can return a normal action OR a function</li>
-                </section>
-
-
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Array methods - map</h2>
-                    <p>A concise way of looping through collections that will come in handy!</p>
-                    <p><code>for</code> loop:</p>
+                  <h3>ES6 Spread Syntax again!</h3>
 <pre class="fragment"><code contenteditable class="javascript">
-  var array = ["javascript", "html", "css"]; 
-  for (var i = 0; i < array.length; i++) {
-    var item = array[i];
-    console.log("On day " + i + " of class we will cover " + item);  
+function lightSwitchReducer(oldState = {}, action) {
+  switch (action.type) {
+    case 'SWITCH_TOGGLED':
+      return {
+        ...state,
+        lightIsOn: !state.lightIsOn, 
+      };
   }
+}
 </code></pre>
-                    
-                    <p>ES6 Array.map</p>
+<p class="fragment">Why can't we just do this?</p>             
 <pre class="fragment"><code contenteditable class="javascript">
-  var array = ["javascript", "html", "css"]; 
-  array.map(function (item, i) {
-    console.log("On day " + i + " of class we will cover " + item);  
-  })
-</code></pre>
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Array methods - map</h2>
-                    <p>Array.map returns a new array of the results</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var array = [1, 2, 3, 4, 5]; 
-  array.map(function (i) {
-    return "<li>line " + i + "</li>";
-  });
-  // ["<li>line 1</li>", "<li>line 2</li>", "<li>line 3</li>", 
-  // "<li>line 4</li>", "<li>line 5</li>"]
-</code></pre>
-
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Your turn!</h2>
-                    <p>Use the <code>map</code> method, arrow functions, and template strings to take
-                    an array of names and return an array of numbered < li>s:
-
-<pre class="fragment"><code contenteditable class="javascript">
-  var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
-  var listNames = (array) => {
-    // your code here
+function lightSwitchReducer(oldState = {}, action) {
+  switch (action.type) {
+    case 'SWITCH_TOGGLED':
+      state.lightIsOn = !state.lightIsOn;
+      return state;
   }
-  
-  // ["<li>1. Alma </li>", 
-  //    "<li>2. Alexander </li>", 
-  //    "<li>3. Duane </li>", 
-  //    "<li>4. Gerard </li>", 
-  //    "<li>5. Lindsay </li>"]
+}
 </code></pre>
-
-                </section>
-
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Answer</h2>
-                    <p>Use the <code>map</code> method, arrow functions, and template strings to take
-                    an array of names and return an array of numbered < li>s:
-
-<pre class="fragment"><code contenteditable class="javascript">
-  var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
-  var listNames = (array) => {
-    return (
-      array.map((name, index) => (<li>{index + 1}. {name}));
-    );
- }
-  
-  // ["<li>1. Alma </li>", 
-  //    "<li>2. Alexander </li>", 
-  //    "<li>3. Duane </li>", 
-  //    "<li>4. Gerard </li>", 
-  //    "<li>5. Lindsay </li>"]
-</code></pre>
-
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2><code>let</code> and <code>const</code></h2>
-                    <ul>
-                      <li>Use in place of generic "var"</li>
-                      <li>Use <code>const</code> if the variable should be a constant</li>
-                      <li>Use <code>let</code> if the variable can be modified</li>
-                      <li><code>let</code> and <code>const</code> are block-scoped, not function-scoped</li>
-                    </ul>
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Modules</h2>
-                    <p>ES6 natively supports modules, so we don't need RequireJS, CommonJS, etc</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  export var port = 3000
-  export function getAccounts(url) {
-    ...
-  }
-
-</code></pre>
-
-<pre class="fragment"><code contenteditable class="javascript">
-  import { port, getAccounts } from 'module'
-  console.log(port) // 3000
-
-</code></pre>
+                  <p class="fragment">Because we need <strong>pure functions</strong>: we can't modify state</p>
 
                 </section>
 
@@ -388,112 +321,199 @@ function usersReducer(state = {}, action) {
                     <h2>Stretch break!</h2>
                     <img src="img/cat_stretch.jpg" alt="kitty!" />
                 </section>
-                
+
                 <section>
-                    <h3>React!</h3>
+                  <h3>Connected "Smart" Components</h2>
+                  <ul>
+                    <li>Different parts of the app need different <strong>action creators</strong> as well as different <strong>parts of state</strong></li>
+                    <li><strong>Smart components</strong> are the ones that connect Redux action creators and state to your UI</li>
+                  </ul>
                 </section>
-                
+
                 <section>
-                    <h3>Starting a React app</h3>
-                    <a href="https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started">Facebook's create-react-app</a>
-                    <ul>
-                      <li> Takes care of transpiling ES6, JSX</li>
-                      <li> Creates a development server so we get hot-reloading for free!</li>
-                    </ul>
+                  <div style="display: flex">
+                    <img src="img/state tree.png"/>
+                    <img width="80%" src="img/smart components.png"/>
+                  </div>
+                </section>
 
+                <section>
+                  <h3>Dumb components</h2>
+                  <ul>
+                    <li>Dumb components are the visible components to your UI</li>
+                    <li>They get all of their <strong>props</strong> and <strong>functions</strong> from their smart parent components</li>
+                    <li>They have no knowledge of Redux or the state tree</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Dumb components</h2>
+                    <img src="img/dumb components.png"/>
+                </section>
+
+                <section>
+                  <h3>Connecting a Smart Component to State</h2>
+                  <p>React-redux provides a function called 'connect'</p>
+                  <ul>
+                    <li class="fragment"><code>ConnectedComponent = connect(mapStateToProps)(Component)</code></li>
+                    <li class="fragment"><code>mapStateToProps</code> is a function that you write for each smart component</li>
+                    <li class="fragment">It translates the <strong>state tree</strong> into <strong>props</strong> to pass to its children</li>
+                  </ul>
 <pre class="fragment"><code contenteditable class="javascript">
-$ npm install -g create-react-app
-$ create-react-app my-app
+mapStateToProps = (state) => {
+  isMenuOpen: state.menu.isOpen,
+  menuOptionSelected: state.menu.optionSelected,
+  menuOptions: state.menu.options,
+  formattedOptions: customFormattingFunction(state.menu.options),
+};
+</code></pre>  
+                </section>
 
+                <section>
+                  <h3>Connecting a Smart Component to Action Creators</h3>
+                  <ul>
+                    <li class="fragment">React-redux provides <code>bindActionCreators</code></li>
+                    <li class="fragment">Combines action creators with the <code>dispatch</code> function</li>
+                    <li class="fragment"><code>var boundActions = bindActionCreators(actionCreators, dispatch)</code></li>
+                    <li class="fragment">The bound actions can be passed to "dumb" components as props</li>
+                  </ul>                                             
+                </section>
+
+                <section>
+                  <img src="img/bind-action-creators.png" />
+<!-- <pre class="fragment"><code contenteditable class="javascript"> -->
+<!-- // groceryActionCreators.js -->
+<!-- export addedGroceryItem = (item) => { -->
+<!--   return { -->
+<!--     type: "GROCERY_ITEM_ADDED", -->
+<!--     data: { item: item }, -->
+<!--   }; -->
+<!-- }; -->
+<!-- // App.js -->
+<!-- import { Component } from 'react' -->
+<!-- import { bindActionCreators } from 'redux' -->
+<!-- import { connect } from 'react-redux' -->
+<!-- import * as groceryActionCreators from '../state/actions/grocery-action-creators.js'; -->
+<!-- class GroceryListContainer extends Component { -->
+<!--   render() { -->
+<!--     // Injected by react-redux: -->
+<!--     let { dispatch } = this.props -->
+<!--     let boundActionCreators = bindActionCreators(groceryActionCreators, dispatch) -->
+<!--     return ( -->
+<!--       <GroceryList {...boundActionCreators} /> -->
+<!--     ); -->
+<!--   } -->
+<!-- } -->
+<!-- </code></pre>                     -->
+                </section>
+
+                <section>
+                  <h3>Adding new features</h3>
+                  <p>You decide to add a "filter" to a table in your app - a box at the top that lets you filter the list by name</p>
+                  <ul>
+                    <li class="fragment">Define the initial state for the new feature</li>
+<pre class="fragment"><code contenteditable class="javascript">
+// filterReducer.js
+var initialState = {
+  hasFocus: false,
+  filterText: '',
+};                        
 </code></pre>
-
+                  </ul>
                 </section>
 
                 <section>
-                    <h3>JSX</h3>
+                  <h3>Adding new features: Actions</h3>
+                  <ul>
+                    <li class="fragment">Write the action creators for the feature</li>
 <pre class="fragment"><code contenteditable class="javascript">
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+// filterActionCreators.js                        
+export filterTextChanged = text => ({
+  type: "FILTER_TEXT_CHANGED",
+  data: { text: text },
+});
+export filterFocused = () => ({
+  type: "FILTER_FOCUSED",
+});
+export filterBlurred = () => ({
+  type: "FILTER_BLURRED",
+});
+</code></pre>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Adding new features: Reducers</h3>
+                  <ul>
+                    <li>Write the reducers for the function</li>
+<pre class="fragment"><code contenteditable class="javascript">
+// filterReducer.js                        
+function filterReducer(previousState = initialState, action) {
+  switch (action.type) {
+    case 'FILTER_TEXT_CHANGED':
+      const { filterText } = action.data;
+      return {
+        ...previousState,
+        filterText: filterText,
+      };
+    case 'FILTER_FOCUSED':
+      return {
+        ...previousState,
+        hasFocus: true,
+      };
+    case 'FILTER_BLURRED':
+      return {
+        ...previousState,
+        hasFocus: false,
+    };
+    default:
+      return previousState;
   }
 }
 </code></pre>
-                </section>
-
-                <section>
-                  <h3>JSX</h3>
-                  <p>JSX looks a lot like HTML, but uses some of its own syntax & attribute names</p>
-                  <ul>
-                    <li><code>className</code> instead of <code>class</code></li>
-                    <li>Event names: <code>onClick, onKeyUp, onChange</code> take care of cross-browser compatibility</li>
+                    
                   </ul>
-                </section>
-                
-                
-                <section>
-                  <h3>Props</h3>
-                  <p>What are the props being passed to this React component?</p>
-                  <img src="img/props.png" alt="React Props" />
-                </section>
+                  </section>
 
                 <section>
-                  <h3>Style: a special prop</h3>
-                  <p>React components accept a special <code>style</code> prop, which can be used in place of SASS/CSS stylesheets.</p>
-                  <p>Note:</p>
-                  <ul>
-                    <li>camel-cased properties</li>
-                    <li>doesn't take care of browser prefixes</li>
-                    <li>need <code>{}</code> JavaScript evaluation with <br/>
-                      a style object { ...properties } inside </li>
-                  </ul>                  
-                </section>
-                <section>
-                  <h3>Style: a special prop</h3>
-                  <img src="img/style-prop.png" alt="Style prop" />
-                </section>
+                  <h3>Adding new features: Connected component</h3>
+                  <img src="img/connected-filter-component.png" />
+<!-- <pre class="fragment"><code contenteditable class="javascript">                   -->
+<!-- // App.js -->
+<!-- import { Component } from 'react' -->
+<!-- import { bindActionCreators } from 'redux' -->
+<!-- import { connect } from 'react-redux' -->
 
-                
-                <section>
-                  <h3>Components</h3>
-                  <p>Reusable Components are the building block of React</p>
-                  <ul>
-                    <li>These can be small style components, like styled buttons, section headers, form items that will be used throughout your app;</li>
-                    <li>or app-specific components that are used in only one area, but repeated</li>                  
-                </section>
+<!-- import * as filterActionCreators from '../state/actions/filter-action-creators.js'; -->
+                  
+<!-- class FilterContainer extends Component { -->
+<!--   render() { -->
+<!--     // Injected by react-redux: -->
+<!--     let { dispatch } = this.props -->
+<!--     let boundActionCreators = bindActionCreators(filterActionCreators, dispatch) -->
+<!--     return ( -->
+<!--       <Filter {...boundActionCreators} /> -->
+<!--     ); -->
+<!--   } -->
+<!-- } -->
+<!-- </code></pre> -->
+</section>
+                <!-- <section> -->
+                <!--   <h3>Redux-thunk: Actions with Side Effects</h3> -->
+                <!--   <p><strong>Side effects</strong> can be handled by Redux Action Creators</p> -->
+                <!--   <ul> -->
+                <!--     <li>API Calls</li> -->
+                <!--     <li>Dispatch other actions</li> -->
+                <!--   </ul> -->
+                <!-- </section> -->
 
-             
-                
-                <section>
-                  <h3>Let's Develop It</h3>
-                  <p>Use the generated app in <code>petDirectory</code> to generate a list of pet profiles.</p>
-                  <p>Some ideas:</p>
-                  <ul>
-                    <li>show thumbnails (using <code>width</code>of all animals, with a 'more info' section that shows a larger picture and details of the individual when you click the thumbnail</li>
-                    <li>A "like" feature where clicking on a button beneath the picture highlights the picture in red</li>
-                    <li>Extra credit: An "add a pet" form with fields for name, profile, and a url for the photo</li>
-                    </ul>
-                </section>
+                <!-- <section> -->
+                <!--   <h3>Redux-thunk: Actions with Side Effects</h3> -->
+                <!--   <ul> -->
+                <!--     <li>Middleware  -->
+                <!--     <li>Redux-thunk action creators can return a normal action OR a function</li> -->
+                <!-- </section> -->
 
-                <!-- End of class -->
-                <section>
-                    <h3>Summary</h3>
-                    <ul>
-                        <li>Intro</li>
-                        <li>Exercise</li>
-                        <li>Stretch break</li>
-                        <li>Wrap up</li>
-                    </ul>
-                </section>
                 <section>
                     <h3>Homework (optional)</h3>
                     <ol>

@@ -184,7 +184,7 @@
                   <h3>Benefits of React</h3>
                   <p>Templating power of Javascript</p>
 
-                  <pre class="fragment"><code contenteditable class="javascript">
+ <pre class="fragment"><code contenteditable class="javascript">
   function render() {
     var flavors = ["peanut butter", "chocolate", "vanilla"];
     return (
@@ -193,7 +193,7 @@
       </div>
     );
   }
-</code></pre>
+</code></pre> 
                   <div class="fragment"> My favorite ice cream flavors are
                     <strong>peanut butter</strong> and <strong>chocolate</strong> and <strong>vanilla</strong>.
                   <div>
@@ -274,6 +274,27 @@
   }
 </code></pre>
                 </section>
+
+                <section>
+                    <h3>ES6</h3>
+                    <h2>Spread Syntax</h2>
+                    <p>This is for making a copy of an object with some modified properties</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var initialInputState = {
+    hasFocus: false,
+    isValid: true,
+    value: "",
+  };
+</code></pre>
+                    <p class="fragment">Click in form field - which properties change?</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  var newInputState = {
+    ...initialInputState,
+    hasFocus: true,
+  };
+</code></pre>
+                </section>
+                
                 
                 <section>
                     <h3>ES6</h3>
@@ -461,7 +482,11 @@ class App extends Component {
                   </ul>
                 </section>
                 
-                
+                <section>
+                  <h3>Props</h3>
+                  <p><strong>Props</strong> are the pieces of information passed from one component to its child component</p>
+                </section>
+                                
                 <section>
                   <h3>Props</h3>
                   <p>What are the props being passed to this React component?</p>
@@ -475,7 +500,7 @@ class App extends Component {
                   <ul>
                     <li>camel-cased properties</li>
                     <li>doesn't take care of browser prefixes</li>
-                    <li>need <code>{}</code> JavaScript evaluation with <br/>
+                    <li>need <code>{}</code> for JavaScript evaluation, with <br/>
                       a style object { ...properties } inside </li>
                   </ul>                  
                 </section>
@@ -483,7 +508,6 @@ class App extends Component {
                   <h3>Style: a special prop</h3>
                   <img src="img/style-prop.png" alt="Style prop" />
                 </section>
-
                 
                 <section>
                   <h3>Components</h3>
@@ -493,61 +517,85 @@ class App extends Component {
                     <li>or app-specific components that are used in only one area, but repeated</li>                  
                 </section>
 
-             
+                
+                <section>
+                  <h3>State</h3>
+                  <p>Use <code>state</code> when your component needs to keep track of something</p>
+                  <ul>
+                    <li>Value of a text input</li>
+                    <li>Is a menu <strong>open</strong> or <strong>closed</strong>?</li>
+                    <li>The items in a grocery list app</li>
+                  </ul>
+                </section>             
+
+                <section>
+                  <h3>Setting Up State</h3>
+                  <p>Each React component has a <code>constructor</code> function that gets called before it renders - here's where your initial state should be set.</p>
+
+<pre class="fragment"><code contenteditable class="javascript">
+class App extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      menuIsOpen: false,
+      items: [],
+      itemCount: 0,
+    }
+  }    
+}
+</code></pre> 
+                  
+                 </section>
+                <section>
+                  <h3>Accessing state</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+  render() {
+    const { items, itemCount } = this.state;
+    return (
+      <div className="items">
+        {items.map((item, index) => <div className='item'>{item}</div>)}
+      </div>
+      <input className='newItem' onEnterPress={this.addItem}>
+    );
+  }
+  addItem = (e) => {
+    const { items } = this.state;
+    items.push(e.value);
+    this.setState({ items: items }); 
+  }    
+</code></pre>
+                </section>
                 
                 <section>
                   <h3>Let's Develop It</h3>
                   <p>Use the generated app in <code>petDirectory</code> to generate a list of pet profiles.</p>
                   <p>Some ideas:</p>
                   <ul>
-                    <li>show thumbnails (using <code>width</code>of all animals, with a 'more info' section that shows a larger picture and details of the individual when you click the thumbnail</li>
+                    <li>show thumbnails (using <code>width</code> for uniform sizing) of all animals</li>
+                    <li>A "more info" section of the page that shows the pet's details when you click the thumbnail</li>
                     <li>A "like" feature where clicking on a button beneath the picture highlights the picture in red</li>
                     <li>Extra credit: An "add a pet" form with fields for name, profile, and a url for the photo</li>
                     </ul>
                 </section>
 
                 <!-- End of class -->
-                <section>
-                    <h3>Summary</h3>
-                    <ul>
-                        <li>Intro</li>
-                        <li>Exercise</li>
-                        <li>Stretch break</li>
-                        <li>Wrap up</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Homework (optional)</h3>
-                    <ol>
-                        <li>Describe a next-level homework task for students to tackle</li>
-                        <li>Be sure to include solutions to this and all exercises, including bonus items.</li>
-                    </ol>
-                    <p><br />Don't feel you need to finish this right away! Check into #[slack-room-name] for follow-up and questions.</p>
-                </section>
-                <section>
-                    <h3>What next?</h3>
-                    <ol>
-                        <li><a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/pages/Suggested_Course_Sequences/" target="_blank">Suggested class sequences</a></li>
-                        <li>Valuable resources</li>
-                        <li>Other upcoming GDI classes/events</li>
-			<li>Write about your class experience, and send us a link! We can share to the Philly community, and maybe GDI national.</li>
-                    </ol>
-                </section>
-                <section>
-                    <h3>Get Involved</h3>
-                    <ol>
-                        <li>Join Slack community</li>
-                        <li>Teaching assist</li>
-                        <li>Teach something</li>
-                        <li>Mentor or be mentored</li>
-                    </ol>
-                    <p><a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/pages/Get_Involved/" target="_blank">All forms here</a></p>
-                </section>
-                <section>
-                    <h3>Survey</h3>
-                    <p>We value your feedback and are always trying to improve.</p>
-                    <p><a href="" target="_blank">survey link here</a></p>
-                </section>
+                <!-- <section> -->
+                <!--     <h3>Summary</h3> -->
+                <!--     <ul> -->
+                <!--         <li>Intro</li> -->
+                <!--         <li>Exercise</li> -->
+                <!--         <li>Stretch break</li> -->
+                <!--         <li>Wrap up</li> -->
+                <!--     </ul> -->
+                <!-- </section> -->
+                <!-- <section> -->
+                <!--     <h3>Homework (optional)</h3> -->
+                <!--     <ol> -->
+                <!--         <li>Describe a next-level homework task for students to tackle</li> -->
+                <!--         <li>Be sure to include solutions to this and all exercises, including bonus items.</li> -->
+                <!--     </ol> -->
+                <!--     <p><br />Don't feel you need to finish this right away! Check into #[slack-room-name] for follow-up and questions.</p> -->
+                <!-- </section> -->
 			</div>
   		<footer>
         <div class="copyright">
