@@ -255,6 +255,57 @@
 </code></pre>
                 </section>
 
+
+                                <section>
+                  <h3>Redux-thunk: Actions with Side Effects</h3>
+                  <p><strong>Side effects</strong> can be handled by Redux Action Creators</p>
+                  <ul>
+                    <li>API Calls</li>
+                    <li>Dispatch other actions</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Redux-thunk: Actions with Side Effects</h3>
+                  <ul>
+                    <li>Middleware</li>
+                    <li>Redux-thunk action creators can return a normal action OR a function</li>
+                    <li>The 'inner function' gets 2 parameters: the <code>dispatch</code> function and a <code>getState</code> function</li>
+                    <li>That <code>getState</code> parameter is great because you can grab any part of the state tree!</li>                      
+                </section>
+
+                <section>
+                  <h3>Redux-thunk: Actions with Side effects</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleFetchPhotosForUser = () => {
+      const { photosFetchedForUser, username } = this.props;
+      photosFetchedForUser(username);
+    }
+</code></pre>
+<pre class="fragment"><code contenteditable class="javascript">
+    // Meanwhile, in actions/photos.js
+    photosFetchedForUser = (username) => {
+      return (dispatch, getState) => {
+        dispatch({
+          type: 'PHOTOS_REQUESTED_FOR_USER',
+          data: { username: username },
+        });
+        fetch(`/photos/${username}`).then(photos => {
+          dispatch({
+            type: 'PHOTO_REQUESTED_SUCCEEDED_FOR_USER',
+            data: { photos: photos, username: username },
+          });
+        }).catch(err => {
+          dispatch({
+            type: 'PHOTO_REQUEST_FAILED_FOR_USER',
+            data: { error: err, username: username }
+          });
+        });
+      };
+    };
+</code></pre>                  
+                </section>
+
                 <section>
                   <h3>Reducers</h3>
                   <p><strong>Reducers</strong> are functions that take <strong>state</strong> and an <strong>action</strong> and return a <strong>new state</strong>
@@ -498,21 +549,6 @@ function filterReducer(previousState = initialState, action) {
 <!-- } -->
 <!-- </code></pre> -->
 </section>
-                <!-- <section> -->
-                <!--   <h3>Redux-thunk: Actions with Side Effects</h3> -->
-                <!--   <p><strong>Side effects</strong> can be handled by Redux Action Creators</p> -->
-                <!--   <ul> -->
-                <!--     <li>API Calls</li> -->
-                <!--     <li>Dispatch other actions</li> -->
-                <!--   </ul> -->
-                <!-- </section> -->
-
-                <!-- <section> -->
-                <!--   <h3>Redux-thunk: Actions with Side Effects</h3> -->
-                <!--   <ul> -->
-                <!--     <li>Middleware  -->
-                <!--     <li>Redux-thunk action creators can return a normal action OR a function</li> -->
-                <!-- </section> -->
 
                 <section>
                     <h3>Homework (optional)</h3>
