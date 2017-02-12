@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Girl Develop It Philly - React & Redux</title>
+
+		<meta name="description" content="Introduction to the React library and Redux framework">
+		<meta name="author" content="Anne Maiale">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+		<!-- light editor--><link rel="stylesheet" href="lib/css/light.css">
+		<!-- dark editor<link rel="stylesheet" href="lib/css/dark.css">-->
+		
+		<link rel="stylesheet" href="plugin/accessibility-helper/css/accessibility-helper.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!-- If use the PDF print sheet so students can print slides-->
+		
+		<link rel="stylesheet" href="css/print/pdf.css" type="text/css" media="print">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+        <!-- Opening -->
+				<section>
+          <img src="img/react-logo.png" width=200 alt="React logo" />
+          <img src="img/redux-logo.png" width=200 alt="Redux logo" />
+					<h1>React + Redux</h1>
+                    <!-- <img src="img/circle-gdi-logo.png" alt="GDI Logo"/> -->
+				</section>
+
+                <!-- Class begins -->
+                 <section>
+                    <p>wifi: network</p>
+                    <p>password: password</p>
+                    <h4><br />Early?</h4>
+                    <ul>
+                        <li>any prep instructions</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Welcome!</h3>
+                    <div class="left-align">
+                        <p>Girl Develop It is here to provide affordable and accessible programs to learn software through mentorship and hands-on instruction.</p>
+                        <p><a href="https://www.girldevelopit.com/code-of-conduct">Our code of conduct</a></p>
+                        <p>Some "rules"</p>
+                        <ul>
+                            <li>We are here for you!</li>
+                            <li>Every question is important</li>
+                            <li>Help each other</li>
+                            <li>Have fun</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h3>GDI Philly is now on Slack!</h3>
+                    <div class="left-align">
+<p>Slack is a free, chat and messaging system available as either a web or native application for your desktop or mobile device. Sign up here:<br />
+                      <a href="http://bit.ly/gdi-philly-slack" target="_blank">http://bit.ly/gdi-philly-slack</a></p>
+                    </div>
+                </section>
+                <section>
+                  <h3>What we covered: Part 1</h3>
+                  <ul>
+                    <li class ="fragment">React - what is it?</li>
+                    <li class ="fragment">Redux - what is it?</li>
+                    <li class ="fragment">Benefits of React</li>
+                    <li class ="fragment">ES6</li>
+                    <li class ="fragment">JSX</li>
+                    <li class ="fragment">Props</li>
+                    <li class ="fragment">State</li>
+                  </ul>
+                </section>
+                <section>
+                  <h3>What we will cover: Part 2</h3>
+                  <ul>
+                    <li class ="fragment">Redux - what is it?</li>
+                    <li class ="fragment">State Tree</li>
+                    <li class ="fragment">The Redux Cycle</li>
+                    <li class ="fragment">Action Creators</li>
+                    <li class ="fragment">Reducers</li>
+                    <li class ="fragment">"Connected" Views</li>
+                    <li class ="fragment">"Dumb" Components</li>
+                  </ul>
+                </section>
+                <!-- Class content goes here -->
+                
+                <section>
+                  <h3>React - Review</h3>
+              
+                </section>
+
+                
+                <section>
+                  <h3>Approaching Redux</h3>
+                  <ul>
+                    <li class="fragment">Don't worry about remembering every function name or implementation detail - copy and paste!</li>
+                    <li class="fragment">Focus on following the 'flow' of developing a Redux app</li>
+                    <li class="fragment">Work on small pieces at a time</li>
+                  </ul>
+           
+                    <!-- http://redux.js.org/ -->
+                </section>
+
+                <section>
+                  <h3>Redux - What is it</h3>
+                  <p>Redux is a predictable state container for JavaScript apps.</p>
+                  <p>More <strong>highly recommended</strong> resources for Redux:</p>
+                  <a href="https://egghead.io/courses/getting-started-with-redux">Egghead.io - Dan Abramov, creator of Redux, explains in 2 hrs</a>
+           
+                    <!-- http://redux.js.org/ -->
+                </section>
+
+                <section>
+                  <h3>Redux - What is it</h3>
+         
+                  <p>One-way data flow: </p>
+                  <ul>
+                    <li>components don't directly modify their state or other components' states:</li>
+                    <li>they simply tell the 'store' (the thing that manages application state) what change they want to make,</li>
+                    <li>and the store manages telling the views to update</li>
+                  </ul>
+                    <!-- http://redux.js.org/ -->
+                </section>
+
+       <section>
+                  <h3>Redux - What is it</h3>
+                  <p>Redux works well with React because React elements automatically know to re-render if one of their 'props' changes value.</p>
+                    <!-- http://redux.js.org/ -->
+                </section>
+                
+                <section>
+                  <h3>Redux - What does it look like?</h3>
+                    <p>
+                    <ul>
+                      <li class='fragment'>Single data store describes entire application state (no individual 'models')</li>
+                      <li class='fragment'>In React files, event handlers describe user interactions</li>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleSubmitClick = e => {
+      this.props.submitButtonClicked();
+    };
+    render() {
+      <button onClick={this.handleSubmitClick}>Submit</button>
+    }
+</code></pre>         
+                      <li class='fragment'>Business logic happens elsewhere (in <strong>action creators</strong>, if you're curious! More on that later!)</li>
+                    </ul>
+                </section>
+
+                <section>
+                  <h3>The Redux Cycle</h3>
+                  <img width="80%" src="img/redux-cycle-basic.png"/>
+                </section>
+
+
+                <section>
+                  <h3>State tree</h3>
+                  <p>The <strong>state tree</strong> describes the state of the application</p>
+                  <ul>
+                    <li>This includes visual elements as well as data</li>
+                  </ul>
+                  <img width="80%" src="img/redux-state-tree.png"/>
+                </section>
+
+                <section>
+                  <h3>The Redux Cycle</h3>
+                  <ul>
+                    <li class='fragment'>React components dispatch <strong>'actions' describing the user interaction</strong></li>
+                    <li class='fragment'><strong>Redux store</strong> listens for actions and returns an <strong>updated copy of the State Tree</strong>, based on data from actions</li>
+                    <li class='fragment'>React components listen for updates to their <strong>props</strong> and rerender if anything changes</li>
+                  </ul>
+                </section>
+ 
+                <section>
+                  <h3>Redux cycle: Actions</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleMenuItemClicked = e => { // 'inbox' was clicked
+      const { item, menuItemClicked } = this.props;
+      menuItemClicked(item);
+    };
+</code></pre>
+
+<pre class="fragment"><code contenteditable class="javascript">
+    // Meanwhile, in menuActions.js
+    menuItemClicked = (item) => {
+      return {
+        type: "MENU_ITEM_CLICKED",
+        data: { currentItem: item },
+      }
+    };
+</code></pre>
+                </section>
+                
+                <section>
+                <h3>Redux cycle: Actions</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleLogoutClick = () => {
+      const { userLoggedOut } = this.props;
+      userLoggedOut();
+    }
+</code></pre>
+<pre class="fragment"><code contenteditable class="javascript">
+    // Meanwhile, in userActions.js
+    userLoggedOut = () => {
+      return {
+        type: "USER_LOGGED_OUT",
+      }
+    };
+</code></pre>
+                </section>
+
+                <section>
+                  <h3>Redux cycle: Actions</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleDeleteItem = () => {
+      const { itemDeleted, itemId } = this.props;
+      itemDeleted(itemId);
+    }
+</code></pre>
+<pre class="fragment"><code contenteditable class="javascript">
+    // Meanwhile, in itemActions.js
+    itemLoggedOut = (itemId) => {
+      return {
+        type: "ITEM_DELETED",
+        data: { id: itemId },
+      };
+    };
+</code></pre>
+                </section>
+
+                <section>
+                  <h3>Reducers</h3>
+                  <p><strong>Reducers</strong> are functions that take <strong>state</strong> and an <strong>action</strong> and return a <strong>new state</strong>
+
+<pre class="fragment"><code contenteditable class="javascript">
+function usersReducer(state = {}, action) {
+  switch (action.type) {
+    case 'LOGGED_IN':
+      return {
+        ...state,
+        loggedIn: true
+      };
+    case 'LOGGED_OUT':
+      return {
+        ...state,
+        loggedIn: false
+      };
+    default:
+      return state;
+  }
+}
+  </code></pre>
+                </section>
+
+                <section>
+                  <h3>Unpacking Reducers</h3>
+                  <ul>
+                    <li class="fragment">Reducers must be <strong>pure functions with no side effects</strong></li>
+                    <li class="fragment">The reducer function is what defines how the new state should look, but we can't actually <strong>modify</strong> the old state</li>
+                    <li class="fragment">A reducer takes the <strong>old state object</strong>, and based on the <strong>action</strong>, returns a <strong>new state object</strong></li>
+                    
+                    <li class="fragment"><strong>Spread syntax</strong> makes a copy of the old state, and modifies that with the new properties</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>ES6 Spread Syntax again!</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+function lightSwitchReducer(oldState = {}, action) {
+  switch (action.type) {
+    case 'SWITCH_TOGGLED':
+      return {
+        ...state,
+        lightIsOn: !state.lightIsOn, 
+      };
+  }
+}
+</code></pre>
+<p class="fragment">Why can't we just do this?</p>             
+<pre class="fragment"><code contenteditable class="javascript">
+function lightSwitchReducer(oldState = {}, action) {
+  switch (action.type) {
+    case 'SWITCH_TOGGLED':
+      state.lightIsOn = !state.lightIsOn;
+      return state;
+  }
+}
+</code></pre>
+                  <p class="fragment">Because we need <strong>pure functions</strong>: we can't modify state</p>
+
+                </section>
+
+                <section>
+                    <h2>Stretch break!</h2>
+                    <img src="img/cat_stretch.jpg" alt="kitty!" />
+                </section>
+
+                <section>
+                  <h3>Connected "Smart" Components</h2>
+                  <ul>
+                    <li>Different parts of the app need different <strong>action creators</strong> as well as different <strong>parts of state</strong></li>
+                    <li><strong>Smart components</strong> are the ones that connect Redux action creators and state to your UI</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <div style="display: flex">
+                    <img src="img/state tree.png"/>
+                    <img width="80%" src="img/smart components.png"/>
+                  </div>
+                </section>
+
+                <section>
+                  <h3>Dumb components</h2>
+                  <ul>
+                    <li>Dumb components are the visible components to your UI</li>
+                    <li>They get all of their <strong>props</strong> and <strong>functions</strong> from their smart parent components</li>
+                    <li>They have no knowledge of Redux or the state tree</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Dumb components</h2>
+                    <img src="img/dumb components.png"/>
+                </section>
+
+                <section>
+                  <h3>Connecting a Smart Component to State</h2>
+                  <p>React-redux provides a function called 'connect'</p>
+                  <ul>
+                    <li class="fragment"><code>ConnectedComponent = connect(mapStateToProps)(Component)</code></li>
+                    <li class="fragment"><code>mapStateToProps</code> is a function that you write for each smart component</li>
+                    <li class="fragment">It translates the <strong>state tree</strong> into <strong>props</strong> to pass to its children</li>
+                  </ul>
+<pre class="fragment"><code contenteditable class="javascript">
+mapStateToProps = (state) => {
+  isMenuOpen: state.menu.isOpen,
+  menuOptionSelected: state.menu.optionSelected,
+  menuOptions: state.menu.options,
+  formattedOptions: customFormattingFunction(state.menu.options),
+};
+</code></pre>  
+                </section>
+
+                <section>
+                  <h3>Connecting a Smart Component to Action Creators</h3>
+                  <ul>
+                    <li class="fragment">React-redux provides <code>bindActionCreators</code></li>
+                    <li class="fragment">Combines action creators with the <code>dispatch</code> function</li>
+                    <li class="fragment"><code>var boundActions = bindActionCreators(actionCreators, dispatch)</code></li>
+                    <li class="fragment">The bound actions can be passed to "dumb" components as props</li>
+                  </ul>                                             
+                </section>
+
+                <section>
+                  <img src="img/bind-action-creators.png" />
+<!-- <pre class="fragment"><code contenteditable class="javascript"> -->
+<!-- // groceryActionCreators.js -->
+<!-- export addedGroceryItem = (item) => { -->
+<!--   return { -->
+<!--     type: "GROCERY_ITEM_ADDED", -->
+<!--     data: { item: item }, -->
+<!--   }; -->
+<!-- }; -->
+<!-- // App.js -->
+<!-- import { Component } from 'react' -->
+<!-- import { bindActionCreators } from 'redux' -->
+<!-- import { connect } from 'react-redux' -->
+<!-- import * as groceryActionCreators from '../state/actions/grocery-action-creators.js'; -->
+<!-- class GroceryListContainer extends Component { -->
+<!--   render() { -->
+<!--     // Injected by react-redux: -->
+<!--     let { dispatch } = this.props -->
+<!--     let boundActionCreators = bindActionCreators(groceryActionCreators, dispatch) -->
+<!--     return ( -->
+<!--       <GroceryList {...boundActionCreators} /> -->
+<!--     ); -->
+<!--   } -->
+<!-- } -->
+<!-- </code></pre>                     -->
+                </section>
+
+                <section>
+                  <h3>Adding new features</h3>
+                  <p>You decide to add a "filter" to a table in your app - a box at the top that lets you filter the list by name</p>
+                  <ul>
+                    <li class="fragment">Define the initial state for the new feature</li>
+<pre class="fragment"><code contenteditable class="javascript">
+// filterReducer.js
+var initialState = {
+  hasFocus: false,
+  filterText: '',
+};                        
+</code></pre>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Adding new features: Actions</h3>
+                  <ul>
+                    <li class="fragment">Write the action creators for the feature</li>
+<pre class="fragment"><code contenteditable class="javascript">
+// filterActionCreators.js                        
+export filterTextChanged = text => ({
+  type: "FILTER_TEXT_CHANGED",
+  data: { text: text },
+});
+export filterFocused = () => ({
+  type: "FILTER_FOCUSED",
+});
+export filterBlurred = () => ({
+  type: "FILTER_BLURRED",
+});
+</code></pre>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Adding new features: Reducers</h3>
+                  <ul>
+                    <li>Write the reducers for the function</li>
+<pre class="fragment"><code contenteditable class="javascript">
+// filterReducer.js                        
+function filterReducer(previousState = initialState, action) {
+  switch (action.type) {
+    case 'FILTER_TEXT_CHANGED':
+      const { filterText } = action.data;
+      return {
+        ...previousState,
+        filterText: filterText,
+      };
+    case 'FILTER_FOCUSED':
+      return {
+        ...previousState,
+        hasFocus: true,
+      };
+    case 'FILTER_BLURRED':
+      return {
+        ...previousState,
+        hasFocus: false,
+    };
+    default:
+      return previousState;
+  }
+}
+</code></pre>
+                    
+                  </ul>
+                  </section>
+
+                <section>
+                  <h3>Adding new features: Connected component</h3>
+                  <img src="img/connected-filter-component.png" />
+<!-- <pre class="fragment"><code contenteditable class="javascript">                   -->
+<!-- // App.js -->
+<!-- import { Component } from 'react' -->
+<!-- import { bindActionCreators } from 'redux' -->
+<!-- import { connect } from 'react-redux' -->
+
+<!-- import * as filterActionCreators from '../state/actions/filter-action-creators.js'; -->
+                  
+<!-- class FilterContainer extends Component { -->
+<!--   render() { -->
+<!--     // Injected by react-redux: -->
+<!--     let { dispatch } = this.props -->
+<!--     let boundActionCreators = bindActionCreators(filterActionCreators, dispatch) -->
+<!--     return ( -->
+<!--       <Filter {...boundActionCreators} /> -->
+<!--     ); -->
+<!--   } -->
+<!-- } -->
+<!-- </code></pre> -->
+</section>
+                <!-- <section> -->
+                <!--   <h3>Redux-thunk: Actions with Side Effects</h3> -->
+                <!--   <p><strong>Side effects</strong> can be handled by Redux Action Creators</p> -->
+                <!--   <ul> -->
+                <!--     <li>API Calls</li> -->
+                <!--     <li>Dispatch other actions</li> -->
+                <!--   </ul> -->
+                <!-- </section> -->
+
+                <!-- <section> -->
+                <!--   <h3>Redux-thunk: Actions with Side Effects</h3> -->
+                <!--   <ul> -->
+                <!--     <li>Middleware  -->
+                <!--     <li>Redux-thunk action creators can return a normal action OR a function</li> -->
+                <!-- </section> -->
+
+                <section>
+                    <h3>Homework (optional)</h3>
+                    <ol>
+                        <li>Describe a next-level homework task for students to tackle</li>
+                        <li>Be sure to include solutions to this and all exercises, including bonus items.</li>
+                    </ol>
+                    <p><br />Don't feel you need to finish this right away! Check into #[slack-room-name] for follow-up and questions.</p>
+                </section>
+                <section>
+                    <h3>What next?</h3>
+                    <ol>
+                        <li><a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/pages/Suggested_Course_Sequences/" target="_blank">Suggested class sequences</a></li>
+                        <li>Valuable resources</li>
+                        <li>Other upcoming GDI classes/events</li>
+			<li>Write about your class experience, and send us a link! We can share to the Philly community, and maybe GDI national.</li>
+                    </ol>
+                </section>
+                <section>
+                    <h3>Get Involved</h3>
+                    <ol>
+                        <li>Join Slack community</li>
+                        <li>Teaching assist</li>
+                        <li>Teach something</li>
+                        <li>Mentor or be mentored</li>
+                    </ol>
+                    <p><a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/pages/Get_Involved/" target="_blank">All forms here</a></p>
+                </section>
+                <section>
+                    <h3>Survey</h3>
+                    <p>We value your feedback and are always trying to improve.</p>
+                    <p><a href="" target="_blank">survey link here</a></p>
+                </section>
+			</div>
+  		<footer>
+        <div class="copyright">
+          Official class name here -- Philadelphia --
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png" /></a>
+        </div>
+      </footer>
+		</div>
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/accessibility-helper/js/accessibility-helper.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,21 +1,20 @@
-> Please read the national chapter's slide creation guidelines in [the wiki](https://github.com/girldevelopit/gdi-slides-template/wiki). Then, delete this banner and add the specifics about your class below.
+# React + Redux Web App Development
 
-# Add Your Course Title Here
-
-Slides and materials are hosted at [http://gdiphilly.github.io/your-repo-name/](http://gdiphilly.github.io/your-repo-name/).
+Slides and materials are hosted at [http://ajmers.github.io/gdi-philly-react-redux/](http://ajmers.github.io/gdi-philly-react-redux/).
 
 ## Course description
 
-Use this space for a short description of your course. We recommend using the description from your meetup event.
+This class will provide an in-depth, interactive look at creating web applications with React and Redux. React is a library for building the 'view layer' of an application, and Redux is a library for so-called 'one way data flow'. Together, they provide a framework for building declarative, testable and debuggable web-apps. This class is designed for students with some knowledge of Javascript. 
 
 **Cost:** 
 
 **Course length:** (days/hours) 
 
+This class will be taught in 2 3-hour sessions. 
+
 ### Prerequisites:
 
-List any prerequisites for this class, including any previous classes or the equivalent self-study or real-world skills.
-
+Students should be familiar with Javascript.
 
 ### Tech requirements:
 
@@ -27,8 +26,16 @@ Edit this list as needed for your class. The following are just suggestions.
 
 
 ### Topics covered:
-
- - The topics you plan to cover
- - Written in list form
- - Here's another one
-
+- React - what is it?
+- Redux - what is it?
+- Benefits of React
+- ES6
+- JSX
+- Props
+- State
+- State Tree
+- The Redux Cycle
+- Action Creators
+- Reducers
+- Smart "Connected" Views
+- "Dumb" Components
