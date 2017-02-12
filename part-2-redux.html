@@ -307,6 +307,42 @@
                 </section>
 
                 <section>
+                  <h3>Redux-thunk: Actions with Side Effects</h3>
+                  <p>What if <code>username</code> isn't used in your view anywhere? No need to pass it through as a prop - use <code>getState</code>!</p>
+
+<pre class="fragment"><code contenteditable class="javascript">
+    handleFetchPhotosForUser = () => {
+      const { photosFetchedForUser } = this.props;
+      photosFetchedForUser();
+    }
+</code></pre>
+<pre class="fragment"><code contenteditable class="javascript">
+    // Meanwhile, in actions/photos.js
+    photosFetchedForUser = () => {
+      return (dispatch, getState) => {
+        const state = getState();
+        const username = state.user.username;
+        dispatch({
+          type: 'PHOTOS_REQUESTED_FOR_USER',
+          data: { username: username },
+        });
+        fetch(`/photos/${username}`).then(photos => {
+          dispatch({
+            type: 'PHOTO_REQUESTED_SUCCEEDED_FOR_USER',
+            data: { photos: photos, username: username },
+          });
+        }).catch(err => {
+          dispatch({
+            type: 'PHOTO_REQUEST_FAILED_FOR_USER',
+            data: { error: err, username: username }
+          });
+        });
+      };
+    };
+</code></pre>                  
+                </section>
+                
+                <section>
                   <h3>Reducers</h3>
                   <p><strong>Reducers</strong> are functions that take <strong>state</strong> and an <strong>action</strong> and return a <strong>new state</strong>
 
