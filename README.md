@@ -10,7 +10,7 @@ This class will provide an in-depth, interactive look at creating web applicatio
 
 **Course length:** (days/hours) 
 
-This class will be taught in 2 3-hour sessions. 
+This class will be taught in 2 4-hour sessions. 
 
 ### Prerequisites:
 
