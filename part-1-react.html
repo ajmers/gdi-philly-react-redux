@@ -145,13 +145,13 @@
                 </section>
                 
                 <section>
-                  <h3>Redux - What is it</h3>
+                  <h3>Redux - What is it?</h3>
                     <p>Redux is a predictable state container for JavaScript apps.</p>
                     <!-- http://redux.js.org/ -->
                 </section>
                 
                 <section>
-                  <h3>Redux - What is it</h3>
+                  <h3>Redux - What makes it special?</h3>
                     <ul>
                       <li>One-way data flow</li>
                       <li>Single data store describes entire application state</li>
@@ -298,7 +298,10 @@
                 <section>
                     <h3>ES6</h3>
                     <h2>Arrow functions</h2>
-                    <p>For when you get tired of writing <code>function</code></p>
+                    <ul>
+                      <li>For when you get tired of writing <code>function</code></li>
+                      <li>Takes care of context binding (<code>function a() {}.bind(this)</code>)</li>
+                    </ul>
 <pre class="fragment"><code contenteditable class="javascript">
   var clickHandler = function (e) {
     e.preventDefault();
@@ -327,7 +330,7 @@
   }
 </code></pre>
                     
-                    <p>ES6 Array.map</p>
+                    <p class="fragment">ES6 Array.map</p>
 <pre class="fragment"><code contenteditable class="javascript">
   var array = ["javascript", "html", "css"]; 
   array.map(function (item, i) {
@@ -345,52 +348,52 @@
   array.map(function (i) {
     return "<li>line " + i + "</li>";
   });
-  // ["<li>line 1</li>", "<li>line 2</li>", "<li>line 3</li>", 
-  // "<li>line 4</li>", "<li>line 5</li>"]
+</code></pre>
+<p class="fragment">Returns:<p>
+<pre class="fragment"><code>
+  ["<li>line 1</li>", "<li>line 2</li>", "<li>line 3</li>", 
+   "<li>line 4</li>", "<li>line 5</li>"]
 </code></pre>
 
                 </section>
                 
                 <section>
                     <h3>ES6</h3>
-                    <h2>Your turn!</h2>
+                    <h2>Let's Develop It</h2>
                     <p>Use the <code>map</code> method, arrow functions, and template strings to take
                     an array of names and return an array of numbered < li>s:
 
-<pre class="fragment"><code contenteditable class="javascript">
+<pre><code contenteditable class="javascript">
   var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
   var listNames = (array) => {
     // your code here
-  }
-  
-  // ["<li>1. Alma </li>", 
-  //    "<li>2. Alexander </li>", 
-  //    "<li>3. Duane </li>", 
-  //    "<li>4. Gerard </li>", 
-  //    "<li>5. Lindsay </li>"]
+ }
+</code></pre>
+<p class="fragment">Should return:</p>
+<pre class="fragment"><code contenteditable class="javascript">
+  ["<li>1. Alma </li>", 
+     "<li>2. Alexander </li>", 
+     "<li>3. Duane </li>", 
+     "<li>4. Gerard </li>", 
+     "<li>5. Lindsay </li>"]
 </code></pre>
 
                 </section>
 
                 <section>
                     <h3>ES6</h3>
-                    <h2>Answer</h2>
+                    <h2>One solution</h2>
                     <p>Use the <code>map</code> method, arrow functions, and template strings to take
                     an array of names and return an array of numbered < li>s:
 
-<pre class="fragment"><code contenteditable class="javascript">
+<pre><code contenteditable class="javascript">
   var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
   var listNames = (array) => {
     return (
-      array.map((name, index) => (<li>{index + 1}. {name}));
-    );
- }
-  
-  // ["<li>1. Alma </li>", 
-  //    "<li>2. Alexander </li>", 
-  //    "<li>3. Duane </li>", 
-  //    "<li>4. Gerard </li>", 
-  //    "<li>5. Lindsay </li>"]
+      array.map((name, index) => {
+        return (< li>{index + 1}. {name}< /li>));
+      });
+    }
 </code></pre>
 
                 </section>
@@ -409,8 +412,11 @@
                 <section>
                     <h3>ES6</h3>
                     <h2>Modules</h2>
-                    <p>ES6 natively supports modules, so we don't need RequireJS, CommonJS, etc</p>
+                    <ul>
+                      <li class="fragment">Modules let us organize code into different files</li>
+                      <li class="fragment">ES6 natively supports modules, so we don't need RequireJS, CommonJS, etc</li>
 <pre class="fragment"><code contenteditable class="javascript">
+  // config.js
   export var port = 3000
   export function getAccounts(url) {
     ...
@@ -419,6 +425,7 @@
 </code></pre>
 
 <pre class="fragment"><code contenteditable class="javascript">
+  // server.js
   import { port, getAccounts } from 'module'
   console.log(port) // 3000
 
@@ -442,7 +449,17 @@
                       <li> Takes care of transpiling ES6, JSX</li>
                       <li> Creates a development server so we get hot-reloading for free!</li>
                     </ul>
+                </section>
 
+                <section>
+                  <h3>npm</h3>
+                  <ul>
+                    <li class="fragment">npm (node package manager) allows us to use code published by other developers.</li>
+                    <li class="fragment">Use <code>npm install my-package-name</code> to install a package.</li>
+                    <li class="fragment">External dependencies are registered in <code>package.json</code> at the root of your project - so anyone trying to run your code has a record of all of its dependencies</li>
+                    <li class="fragment">For this project, we need to use an npm module called <code>creat-react-app</code></li>
+                  </ul>
+                    
 <pre class="fragment"><code contenteditable class="javascript">
 $ npm install -g create-react-app
 $ create-react-app my-app
@@ -450,6 +467,31 @@ $ create-react-app my-app
 </code></pre>
 
                 </section>
+
+                                <section>
+                                  <h3>npm project structure</h3>
+<pre class="fragment"><code>
+                                    .
+├── README.md
+├── node_modules
+.   ├──
+.   ├── (all dependencies go here!)
+.   └──                                 
+├── package.json
+├── public
+│   ├── favicon.ico
+│   └── index.html
+└── src
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
+    ├── add-grocery-button.js
+    ├── index.css
+    ├── index.js
+└── logo.svg
+</code></pre>
+
+                                </section>
 
                 <section>
                     <h3>JSX</h3>
