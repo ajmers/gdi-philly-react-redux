@@ -457,7 +457,7 @@
                     <li class="fragment">npm (node package manager) allows us to use code published by other developers.</li>
                     <li class="fragment">Use <code>npm install my-package-name</code> to install a package.</li>
                     <li class="fragment">External dependencies are registered in <code>package.json</code> at the root of your project - so anyone trying to run your code has a record of all of its dependencies</li>
-                    <li class="fragment">For this project, we need to use an npm module called <code>creat-react-app</code></li>
+                    <li class="fragment">For this project, we need to use an npm module called <code>create-react-app</code></li>
                   </ul>
                     
 <pre class="fragment"><code contenteditable class="javascript">
@@ -470,22 +470,21 @@ $ create-react-app my-app
 
                                 <section>
                                   <h3>npm project structure</h3>
+                                  <p>Let's see what running <code>create-react-app grocery-list</code> gave us!</p>
 <pre class="fragment"><code>
-                                    .
 ├── README.md
-├── node_modules
+├── node_modules*
 .   ├──
 .   ├── (all dependencies go here!)
 .   └──                                 
 ├── package.json
-├── public
+├── public*
 │   ├── favicon.ico
 │   └── index.html
-└── src
+└── src*
     ├── App.css
     ├── App.js
     ├── App.test.js
-    ├── add-grocery-button.js
     ├── index.css
     ├── index.js
 └── logo.svg
@@ -493,9 +492,48 @@ $ create-react-app my-app
 
                                 </section>
 
-                <section>
-                    <h3>JSX</h3>
-<pre class="fragment"><code contenteditable class="javascript">
+                                <section>
+                                  <h3>What a package.json file looks like</h3>
+<pre class="fragment"><code>
+{
+  "name": "sampleApp",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {           // <- npm modules we need in order 
+    "react-scripts": "0.8.5"     // to work with this code
+  },
+  "dependencies": {              // <- npm modules that we need 
+    "react": "^15.4.2",          // for our code to run
+    "react-dom": "^15.4.2"
+  },
+  "scripts": {                   // <- this is how we'll start our app:
+    "start": "react-scripts start",  // npm start
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
+                                       </code></pre>
+
+                                </section>
+                                
+                                <section>
+
+                                  <h3>JSX: What is it?</h3>
+                                  <ul>
+                                    <li>JSX is a <strong>preprocessor step that adds XML syntax to JavaScript.</strong></li>
+                                    <li>You can definitely use React without JSX but JSX makes React a lot more elegant.</li>
+                                    <li>Just like XML, JSX tags have a tag name, attributes, and children.</li>
+                                  </ul>
+                                  <a href="http://buildwithreact.com/tutorial/jsx">(Source)</a>
+
+                                </section>
+                                
+                                <section>
+                  
+                  <h3>JSX</h3>
+                  <p>Note: <code>classname</code> below should be <code>className</code> (slide deck weirdness!)</p>
+<pre class="fragment"><code contenteditable class="jsx">
 class App extends Component {
   render() {
     return (
@@ -515,11 +553,11 @@ class App extends Component {
                 </section>
 
                 <section>
-                  <h3>JSX</h3>
+                  <h3>JSX features</h3>
                   <p>JSX looks a lot like HTML, but uses some of its own syntax & attribute names</p>
                   <ul>
-                    <li><code>className</code> instead of <code>class</code></li>
-                    <li>Event names: <code>onClick, onKeyUp, onChange</code> take care of cross-browser compatibility</li>
+                    <li class="fragment"><code>className</code> instead of <code>class</code> (because <code>class</code> is a reserved keyword in Javascript)</li>
+                    <li class="fragment">Event names: <code>onClick, onKeyUp, onChange</code> take care of cross-browser compatibility</li>
                   </ul>
                 </section>
                 
@@ -531,8 +569,38 @@ class App extends Component {
                 <section>
                   <h3>Props</h3>
                   <p>What are the props being passed to this React component?</p>
-                  <img src="img/props.png" alt="React Props" />
+                  <p class="fragment">What type of item is each prop?</p>
+                  <img width="80%" class="fragment" src="img/props.png" alt="React Props" />
+                  <p>Source: <code>props.js</code></p>
                 </section>
+
+                <section>
+                  <h3>Props: solution</h3>
+                  <ul>
+                    <li class>className:<span class="fragment"> string</span></li>
+                    <li>onClick:<span class="fragment"> function</span></li>
+                    <li>labelAltText:<span class="fragment"> interpolated string </span></li>
+                    <li>onMouseEnter:<span class="fragment"> function </span></li>
+                    <li>color:<span class="fragment"> string</span></li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Literal vs. Interpreted Props</h3>
+                  <p class="fragment">Some props take literal values like strings or numbers
+                    <ul class="fragment">
+                      <li><code>className="app-header"</code></li>
+                      <li><code>itemCount=3</code></li>
+                  </p><br/>
+                  <p class="fragment">If the value of the prop is Javascript code (including a function reference or anonymous function), it needs to be wrapped in brackets: <code>{}</code>
+                    <ul class="fragment">
+                      <li><code>text={`Today's date is ${date}.`}</code></li>
+                      <li><code>onClick={this.clickHandler}</code></li>
+                      <li><code>onMouseEnter={() => console.log("MOUSE ENTERED"); }</code></li>
+                                       </ul>
+                                       
+                </section>
+                  
 
                 <section>
                   <h3>Style: a special prop</h3>
@@ -542,7 +610,7 @@ class App extends Component {
                     <li>camel-cased properties</li>
                     <li>doesn't take care of browser prefixes</li>
                     <li>need <code>{}</code> for JavaScript evaluation, with <br/>
-                      a style object { ...properties } inside </li>
+                      a style object <code>{ color: 'blue', fontSize: 16 }</code> inside </li>
                   </ul>                  
                 </section>
                 <section>
@@ -554,11 +622,31 @@ class App extends Component {
                   <h3>Components</h3>
                   <p>Reusable Components are the building block of React</p>
                   <ul>
-                    <li>These can be small style components, like styled buttons, section headers, form items that will be used throughout your app;</li>
-                    <li>or app-specific components that are used in only one area, but repeated</li>                  
+                    <li class="fragment">These can be small style components, like <strong>styled buttons,</strong> <strong>section headers,</strong> <strong>form items</strong> that will be used throughout your app;</li>
+                    <li class="fragment">or app-specific components like the sidebar, header menu, or content-area.</li>                  
                 </section>
 
-                
+                <section>
+                  <h3>Components in Action</h3>
+                  <p>Let's find some repeated components on the <a href="https://www.meetup.com/Girl-Develop-It-Philadelphia/"> GDI Meetup page</a></p>
+                </section>
+
+                <section>
+                  <h3>Components in Action: </h3>
+                  <img src="img/gdi-meetups.png">
+                </section>
+
+                <section>
+                  <h3>Let's Develop It</h3>
+                  <p>Write a React component for a Meetup event</p>
+                  <ul>
+                    <li class="fragment">From your root directory, run <code>create-react-app meetup-event</code></li>
+                    <li class="fragment">To bypass the need to authenticate against Meetup's API, we need an npm module that grabs some data from Meetup without authentication using a prepared link.</li>
+                    <li class="fragment"><code>npm install --save fetch-jsonp</code></li>
+                    <li class="fragment">One more thing before we write a React component: component state.</li>
+                  </ul>
+                </section>
+
                 <section>
                   <h3>State</h3>
                   <p>Use <code>state</code> when your component needs to keep track of something</p>
@@ -566,21 +654,25 @@ class App extends Component {
                     <li>Value of a text input</li>
                     <li>Is a menu <strong>open</strong> or <strong>closed</strong>?</li>
                     <li>The items in a grocery list app</li>
+                    <li>The response from the Meetup API</li>
                   </ul>
                 </section>             
 
                 <section>
                   <h3>Setting Up State</h3>
-                  <p>Each React component has a <code>constructor</code> function that gets called before it renders - here's where your initial state should be set.</p>
+                  <ul>
+                    <li class="fragment">Each React component has a <code>constructor</code> function that gets called before it renders - here's where your initial state should be set.</li>
+
+                    <li class="fragment">Bonus: Remember Object-oriented programming? Our new component will <strong>inherit</strong> from React's <code>Component</code> <strong>prototype,</strong> and get custom methods and properties that we define.</li>
+                  </ul>
+                 
 
 <pre class="fragment"><code contenteditable class="javascript">
 class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      menuIsOpen: false,
-      items: [],
-      itemCount: 0,
+       meetups: []
     }
   }    
 }
@@ -606,6 +698,82 @@ class App extends Component {
   }    
 </code></pre>
                 </section>
+
+                <section>
+                  <h3>Let's Develop It</h3>
+                  <p>Back to our Meetup events component</p>
+                  <ul>
+                    <li class="fragment">Inheriting from the Component protoptype, we get some 'lifecycle methods' in our component.</li>
+                    <li class="fragment">The <code>componentDidMount</code> method runs as soon as the component has rendered - this is a good place to fetch data.</li>
+                    <li class="fragment">Back to the magic of React: unless you specify otherwise (in the <code>shouldComponentUpdate</code> method), anytime a component's state or props update, its render method will be called again.</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Fetch data in componentDidMount</h3>
+                  <ul>
+                    <li>URL to fetch GDI Philly events</li>
+                    <li class="fragment"><a href="https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=girl-develop-it-philadelphia&photo-host=public&page=20&fields=&order=time&desc=false&status=upcoming&sig_id=16894471&sig=dba259eb1fd05294f55c42dc4dbc780678899228">Follow this link and copy the URL</a></li>
+                    <li class="fragment">Once the <code>fetchJsonp</code> gets data and we transform the json into a usable JS object, call <code>setState</code> to add it to the component's state object, which is accessible from the render method.</li>
+                    <li class="fragment">What type of data structure do you think we'll get for the events?</li>
+                    </ul>
+                </section>
+
+                <section>
+                  <h3>The render method</h3>
+                  <ul>
+                    <li class="fragment">The response from Meetup is an object with a <code>results</code> key, which is an array of event objects.</li>
+                    <li class="fragment">We need a new component that will be repeated for each Meetup object: a Meetup component!</li>
+
+<pre class="fragment"><code contenteditable class="javascript">
+    render() {
+        const { meetups } = this.state;
+        return (
+            <div className="meetups">
+                { meetups.map(meetup => <Meetup data={meetup} />)}
+            </div>
+        );
+    }
+</code></pre>
+                </section>
+
+                <section>
+                  <h3>The new Meetup component</h3>
+                  <ul>
+                    <li class="fragment">Copy our component file (App.js) and name it Meetup.js</li>
+                    <li class="fragment">Rename the component and remove everything but the <code>render</code> function for now.</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>PropTypes</h3>
+                  <p>React's PropTypes allow us to make sure that the props being passed to our component are the right type, which makes debugging easier.</p>
+
+<pre class="fragment"><code contenteditable class="javascript">
+Meetup.propTypes = {
+    data: PropTypes.shape({
+        description: PropTypes.string,
+        name: PropTypes.string,
+        rsvp_limit: PropTypes.number,
+    }),
+}
+</code></pre>
+</section>                
+
+                <section>
+                    <h2>Q's?</h2>
+                </section>
+
+                <section>
+                  <h2>Homework</h2>
+                  <ul>
+                    <li>Use the Catfacts API to create a list of Cat facts.</li>
+                    <li>http://catfacts-api.appspot.com/api/facts</li>
+                    <li>Use <code>fetch</code> instead of </code>fetchJsonp</code>.</li>
+                    <li>Fetch a new catfact every 5 seconds using the <code>setInterval</code> function in the <code>componentDidMount</code> method of your App component.</li>
+                    <li>Create a new <code>Fact</code> component that renders each individual fact.</li>
+                </section>
+
                 
                 <section>
                   <h3>Let's Develop It</h3>

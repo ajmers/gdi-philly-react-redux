@@ -10,6 +10,7 @@ class App extends Component {
       groceryList: [],
     };
   }
+    
   onIntroClick = () => {
     alert('CLICKED');
   };
