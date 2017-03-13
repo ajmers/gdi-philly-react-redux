@@ -767,24 +767,20 @@ Meetup.propTypes = {
                 <section>
                   <h2>Homework</h2>
                   <ul>
-                    <li>Use the Catfacts API to create a list of Cat facts.</li>
-                    <li>http://catfacts-api.appspot.com/api/facts</li>
-                    <li>Use <code>fetch</code> instead of </code>fetchJsonp</code>.</li>
-                    <li>Fetch a new catfact every 5 seconds using the <code>setInterval</code> function in the <code>componentDidMount</code> method of your App component.</li>
-                    <li>Create a new <code>Fact</code> component that renders each individual fact.</li>
+                    <li>Use the Spotify API to create a list of Spotify artists</li>
+                    <li>https://api.spotify.com/v1/search?q=ARTIST NAME HERE&type=artist</li>
+                    <li>Use <code>fetch</code> instead of <code>fetchJsonp</code>.</li>
+                    <li>Notice how in our Meetup app, we had to deconstruct the response from the API and pull out the 'results' key - you'll have to do something similar if the Spotify API returns metadata.</li>
+                    <li>Create a new <code>Artist</code> component that renders each individual fact.</li></ul>
                 </section>
 
-                
                 <section>
-                  <h3>Let's Develop It</h3>
-                  <p>Use the generated app in <code>petDirectory</code> to generate a list of pet profiles.</p>
-                  <p>Some ideas:</p>
+                  <h3>Homework BONUS</h2>
                   <ul>
-                    <li>show thumbnails (using <code>width</code> for uniform sizing) of all animals</li>
-                    <li>A "more info" section of the page that shows the pet's details when you click the thumbnail</li>
-                    <li>A "like" feature where clicking on a button beneath the picture highlights the picture in red</li>
-                    <li>Extra credit: An "add a pet" form with fields for name, profile, and a url for the photo</li>
-                    </ul>
+                    <li>Try fetching a new artist every 5 seconds using the <code>setInterval</code> function in the <code>componentDidMount</code> method of your App component, and ADDING that to your list.</li>
+                    <li>Try a different Spotify endpoint if you want. <a href="https://developer.spotify.com/web-api/user-guide/">Spotify's API docs</a></li>
+                  </ul>
+                    
                 </section>
 
                 <!-- End of class -->
