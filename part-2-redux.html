@@ -434,6 +434,7 @@ function usersReducer(state = {}, action) {
                   <h3>State Slices</h3>
                   <ul>
                     <li class="fragment">Each "slice" of state gets its own reducer, so your reducer functions don't have to navigate complex nested objects.</li>
+                    <li class="fragment">Each slice has an <code>initialState</code> that defines the structure for the state and what its initial values are.</li>
                     <li class="fragment">Slices are discrete logical sections of your state - user, search, todos. You can break them up the way you want.</li>
                     <li class="fragment">Redux's <strong>combine-reducer</strong> function combines all the reducers into the "state tree".</li>
                   </ul>
