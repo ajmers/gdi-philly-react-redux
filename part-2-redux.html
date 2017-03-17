@@ -382,6 +382,7 @@ menuItemSelected = (item) => {
                     
                                 <section>
                                   <h3>But what happens to those actions?</h3>
+                                  <p class="fragment">Reducers!</p>
                                 </section>
 
                                 <section>
@@ -476,7 +477,7 @@ function lightSwitchReducer(oldState = {}, action) {
 
 
 
-                                <section>
+                <section>
                   <h3>Redux-thunk: Actions with Side Effects</h3>
                   <p><strong>Side effects</strong> can be handled by Redux Action Creators</p>
                   <ul>
@@ -551,12 +552,7 @@ function lightSwitchReducer(oldState = {}, action) {
             type: 'PHOTO_REQUESTED_SUCCEEDED_FOR_USER',
             data: { photos: photos, username: username },
           });
-        }).catch(err => {
-          dispatch({
-            type: 'PHOTO_REQUEST_FAILED_FOR_USER',
-            data: { error: err, username: username }
-          });
-        });
+        })
       };
     };
 </code></pre>                  
@@ -565,8 +561,10 @@ function lightSwitchReducer(oldState = {}, action) {
                 <section>
                   <h3>Connected "Smart" Components</h2>
                   <ul>
-                    <li>Different parts of the app need different <strong>action creators</strong> as well as different <strong>parts of state</strong></li>
-                    <li><strong>Smart components</strong> are the ones that connect Redux action creators and state to your UI</li>
+                    <li class="fragment">Different parts of the app need different <strong>action creators</strong> as well as different <strong>parts of state</strong></li>
+                    <li class="fragment"><strong>Smart components</strong> are the React components that connect <strong>Redux action creators and state</strong> to your UI</li>
+                    <br/>
+                    <li class="fragment">They are <strong>containers</strong> for styled, visible React components. They act as connectors between state and UI by passing action creators to their children.</li>
                   </ul>
                 </section>
 
@@ -620,50 +618,62 @@ mapStateToProps = (state) => {
                 </section>
 
                 <section>
-                  <img src="img/bind-action-creators.png" />
-<!-- <pre class="fragment"><code contenteditable class="javascript"> -->
-<!-- // groceryActionCreators.js -->
-<!-- export addedGroceryItem = (item) => { -->
-<!--   return { -->
-<!--     type: "GROCERY_ITEM_ADDED", -->
-<!--     data: { item: item }, -->
-<!--   }; -->
-<!-- }; -->
-<!-- // App.js -->
-<!-- import { Component } from 'react' -->
-<!-- import { bindActionCreators } from 'redux' -->
-<!-- import { connect } from 'react-redux' -->
-<!-- import * as groceryActionCreators from '../state/actions/grocery-action-creators.js'; -->
-<!-- class GroceryListContainer extends Component { -->
-<!--   render() { -->
-<!--     // Injected by react-redux: -->
-<!--     let { dispatch } = this.props -->
-<!--     let boundActionCreators = bindActionCreators(groceryActionCreators, dispatch) -->
-<!--     return ( -->
-<!--       <GroceryList {...boundActionCreators} /> -->
-<!--     ); -->
-<!--   } -->
-<!-- } -->
-<!-- </code></pre>                     -->
+<pre style="position: relative; left: -200px; top: -100px; width: 1200px;"><code style="max-width: 100%; max-height: 600px;" contenteditable class="javascript">
+// App.js
+import { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as groceryActionCreators from '../state/actions/grocery-action-creators.js';
+</code></pre>
+
+<pre style="position: relative; left: -200px; top: -100px; width: 1200px" class="fragment"><code style="max-width: 100%;" contenteditable class="javascript">
+class GroceryListContainer extends Component {
+  render() {
+    // Injected by react-redux:
+    let { dispatch } = this.props
+    let boundActionCreators = bindActionCreators(groceryActionCreators, dispatch)
+    return (
+      <GroceryList {...boundActionCreators}></GroceryList>
+    );
+  }
+}
+      </code></pre>
+
+<pre style="position: relative; left: -200px; top: -100px; width: 1200px;" class="fragment"><code style="max-width: 100%;" contenteditable class="javascript">
+class GroceryList extends Component {
+  handleItemClicked = () => {
+    const { item, removedGroceryItem } = this.props;
+    removedGroceryItem(item);
+  };
+  render() {
+    const { item } = this.props;
+    return (
+      <div className="grocery-list"
+         onClick={this.handleItemClick}>
+        {item.name}
+      </div>
+    )
+  }
+}
+
+</code></pre>
                 </section>
 
                 <section>
-                  <h3>Adding new features</h3>
-                  <p>You decide to add a "filter" to a table in your app - a box at the top that lets you filter the list by name</p>
-                  <ul>
-                    <li class="fragment">Define the initial state for the new feature</li>
-<pre class="fragment"><code contenteditable class="javascript">
-// filterReducer.js
-var initialState = {
-  hasFocus: false,
-  filterText: '',
-};                        
-</code></pre>
-                  </ul>
+                  <h3>Adding a new feature or component</h3>
+                  <h4>Break it down</h4>
+                  <ol>
+                    <li class="fragment">Write action creators that define possible interactions with this feature/component, and what data they require.</li>
+                    <li class="fragment">Write the reducer to define what the "state slice" for this feature looks like, and how actions affect it.</li>
+                    <li class="fragment">Hook it up to the Smart Component with <code>bindActionCreators</code></li>
+                    <li class="fragment">Your component will now receive the action creator actions as <strong>props</strong>.</li>
+                  </ol>
                 </section>
+
 
                 <section>
                   <h3>Adding new features: Actions</h3>
+                  <p>You decide to add a "filter" to a table in your app - a box at the top that lets you filter the list by name</p>
                   <ul>
                     <li class="fragment">Write the action creators for the feature</li>
 <pre class="fragment"><code contenteditable class="javascript">
@@ -679,6 +689,22 @@ export filterBlurred = () => ({
   type: "FILTER_BLURRED",
 });
 </code></pre>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Adding new features: Reducers</h3>
+                  <ul>
+
+                    <li class="fragment">Define the initial state for the new feature</li>
+<pre class="fragment"><code contenteditable class="javascript">
+// filterReducer.js
+var initialState = {
+  hasFocus: false,
+  filterText: '',
+};                        
+</code></pre>
+
                   </ul>
                 </section>
 
