@@ -172,21 +172,53 @@
 </code></pre>         
                       <li class='fragment'>Business logic happens elsewhere (in <strong>action creators</strong>, if you're curious! More on that later!)</li>
                     </ul>
-                </section>
+</section>
+
+<section>
+  <h3>A React/Redux project</h3>
+  <pre class="fragment"><code contenteditable>
+└── src
+    ├── App.js     - "entry point" - injects the app into your webpage
+    ├── api        - requests to APIs for data go here
+    ├── assets     - images, fonts, styles
+    ├── components - reusable components, agnostic of role in app,
+                     with their styles
+    ├── state      - REDUX! Stores the app's entire state tree,
+                     and updates the state tree in response to events
+                     in the views
+    ├── utils      - miscellaneous functions for reuse throughout app
+    └── views      - app-specific UI interfaces 
+</code></pre>         
+</section>
+
+<section>
+  <h3>A React/Redux project - details</h3>
+  <pre class="fragment"><code contenteditable>
+├── api
+│   ├── meetup.js
+│   └── spotify.js
+├── assets
+│   ├── images
+│   └── styles
+├── state <- THIS IS WHERE REDUX COMES IN!
+│   ├── actions
+│   └── reducers
+├── components
+│   ├── event.js
+│   ├── event.scss
+│   ├── input.js
+│   └── input.scss
+├── views
+    ├── app-header
+    └── login             
+└── utils
+</code></pre>         
+</section>
+  
 
                 <section>
                   <h3>The Redux Cycle</h3>
                   <img width="80%" src="img/redux-cycle-basic.png"/>
-                </section>
-
-
-                <section>
-                  <h3>State tree</h3>
-                  <p>The <strong>state tree</strong> describes the state of the application</p>
-                  <ul>
-                    <li>This includes visual elements as well as data</li>
-                  </ul>
-                  <img width="80%" src="img/redux-state-tree.png"/>
                 </section>
 
                 <section>
@@ -197,35 +229,63 @@
                     <li class='fragment'>React components listen for updates to their <strong>props</strong> and rerender if anything changes</li>
                   </ul>
                 </section>
- 
-                <section>
-                  <h3>Redux cycle: Actions</h3>
-<pre class="fragment"><code contenteditable class="javascript">
-    handleMenuItemClicked = e => { // 'inbox' was clicked
-      const { item, menuItemClicked } = this.props;
-      menuItemClicked(item);
-    };
-</code></pre>
 
+                <section>
+                  <h3>Anatomy of a Redux Action</h3>
+                  <ul>
+                    <li class='fragment'>A Redux action is a Javascript object</li>
+                    <li class='fragment'>It has one <strong>absolutely essential </strong>property: a <strong>type</strong> which is a descriptive string.</li>
+                    <li class="fragment">It has optional properties - the most important one is <strong>data</strong></li>
+                  </ul>
 <pre class="fragment"><code contenteditable class="javascript">
-    // Meanwhile, in menuActions.js
-    menuItemClicked = (item) => {
-      return {
-        type: "MENU_ITEM_CLICKED",
-        data: { currentItem: item },
+someActions = [
+    {
+      type: "SPOTIFY_PLAYLIST_DATA_RECEIVED",
+      data: {
+        playlistName: "Snow Day Playlist",
+        genre: "RockNRoll", 
       }
-    };
+    },
+    {
+      type: "USER_LOGOUT_SUCCEEDED",
+    }
+]
 </code></pre>
                 </section>
-                
+
                 <section>
-                <h3>Redux cycle: Actions</h3>
+                  <h3>Action Creators</h3>
+                  <ul>
+                    <li class="fragment">We need to <strong>dispatch</strong> different actions from different parts of the UI.</li>
+                    <li class="fragment">To access our actions, create functions that return those actions, which can be called from the UI</li>
+                    <li class="fragment">They allow us to pass different information to the actions as function arguments so that the actions are reusable.</li>
+                    <li class="fragment">These functions are called <strong>action creators</strong>.</li>
+                  </ul>
+
+<pre class="fragment"><code contenteditable class="javascript">
+    export function spotifyPlaylistDataReceived(playlist) {
+      return {
+        type: "SPOTIFY_PLAYLIST_DATA_RECEIVED",
+        data: {
+          playlistName: playlist.name,
+          genre: playlist.genre, 
+        }
+      };
+    }
+</code></pre>
+                </section>
+
+                 <section>
+                  <h3>Redux cycle: Actions</h3>
+                  <span class="fragment">React: <code>views/login-form.js</code></span>
 <pre class="fragment"><code contenteditable class="javascript">
     handleLogoutClick = () => {
       const { userLoggedOut } = this.props;
       userLoggedOut();
     }
 </code></pre>
+
+<span class="fragment">Redux: <code>state/actions/login-action-creators.js</code></span>
 <pre class="fragment"><code contenteditable class="javascript">
     // Meanwhile, in userActions.js
     userLoggedOut = () => {
@@ -238,12 +298,14 @@
 
                 <section>
                   <h3>Redux cycle: Actions</h3>
+                  <span class="fragment">React: <code>views/todo-list.js</code></span>
 <pre class="fragment"><code contenteditable class="javascript">
     handleDeleteItem = () => {
       const { itemDeleted, itemId } = this.props;
       itemDeleted(itemId);
     }
 </code></pre>
+                  <span class="fragment">Redux: <code>state/actions/todo-list-action-creators.js</code></span>
 <pre class="fragment"><code contenteditable class="javascript">
     // Meanwhile, in itemActions.js
     itemLoggedOut = (itemId) => {
@@ -254,6 +316,164 @@
     };
 </code></pre>
                 </section>
+
+                <section>
+                  <h3>Let's Develop It!</h3>
+                  <p>Think of an interaction you have with a web app</p>
+                  <ul>
+                    <li class="fragment">Write the 'handler' part of it: what does the user do? (click, type, select)</li>
+                    <li class="fragment">What does Redux need to know about this user action? (id of the item deleted, values of form fields, which menu item was selected, maybe nothing)</li>
+                    <li class="fragment">How does this affect the state of the app?</li>
+                  </ul>
+                </section>
+
+                                <section>
+                  <h3>One solution</h3>
+                  <p>UI component, handler, and action creator for <strong> clicking on a menu item</strong></p>
+                  <ul>
+                    <li class="fragment">The "handler" part: some JSX with an onClick handler for menu items</li>
+                  </ul>
+<pre class="fragment"><code contenteditable class="javascript">
+    React component:
+    render() {
+      const { menuItems } = this.props;
+      return (
+        <div className="header-menu">
+          {menuItems.map(item -> (
+            <li onClick={this.handleMenuItemSelection}
+                className="header-menu__item">
+                  {item.name}
+            </li> )
+            )}
+        </div>
+      );
+    }
+</code></pre>
+                                </section>
+
+
+                                <section>
+                                  <h3>Action solution, continued</h3>
+                                  <ul>
+                                    <li class="fragment">Q: What does Redux need to know about this user action?</li>
+                                    <li class="fragment">A: Which menu item was clicked</li>
+                                  </ul>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleMenuItemSelection = (item) => {
+      const { menuItemSelected } = this.props;
+      menuItemSelected(item);
+    }
+</code></pre>
+                                </section>
+
+                                <section>
+                                  <h3>Action solution, continued</h3>
+                                  <ul>
+                                    <li class="fragment">Redux: What kind of action gets dispatched?</li>
+                                  </ul>
+<pre class="fragment"><code contenteditable class="javascript">
+// state/actions/menu-action-creators.js
+menuItemSelected = (item) => {
+  type: "MENU_ITEM_SELECTED",
+  data: { item: item },
+};
+</code></pre>
+                                </section>
+                    
+                                <section>
+                                  <h3>But what happens to those actions?</h3>
+                                </section>
+
+                                <section>
+                                  <h3>State tree</h3>
+                                  <p>The <strong>state tree</strong> describes the state of the application</p>
+                                  <ul>
+                                    <li>This includes visual elements as well as data</li>
+                                  </ul>
+                                  <img width="80%" src="img/redux-state-tree.png"/>
+                                </section>
+
+                                <section>
+                                  <h3>Reducers: <code>oldState + action = newState</code></h3>
+                                  <div class="image-container" style="display: flex; flex-direction: row; align-items: center;">
+                                    <img class="fragment" src="img/redux-state-tree--search.png"/>
+                                    <div class="fragment" style="margin: 50px;">+</div>
+                                    <img class="fragment" src="img/redux-action-search-changed.png"/>
+                                    <div class="fragment" style="margin: 50px;">=</div>
+                                    <img class="fragment" src="img/redux-state-tree--search-modified.png"/>
+                                  </div>
+                                </section>
+
+                                
+                                <section>
+                                  <h3>Reducers</h3>
+                                  <p><strong>Reducers</strong> are functions that take <strong>state</strong> and an <strong>action</strong> and return a <strong>new state</strong>
+
+<pre class="fragment"><code contenteditable class="javascript">
+function usersReducer(state = {}, action) {
+  switch (action.type) {
+    case 'LOGGED_IN':
+      return {
+        ...state,
+        loggedIn: true
+      };
+    case 'LOGGED_OUT':
+      return {
+        ...state,
+        loggedIn: false
+      };
+    default:
+      return state;
+  }
+}
+  </code></pre>
+                </section>
+
+                <section>
+                  <h3>Unpacking Reducers</h3>
+                  <ul>
+                    <li class="fragment">Reducers must be <strong>pure functions with no side effects</strong></li>
+                    <li class="fragment">The reducer function is what defines how the new state should look, but we can't actually <strong>modify</strong> the old state</li>
+                    <li class="fragment">A reducer takes the <strong>old state object</strong>, and based on the <strong>action</strong>, returns a <strong>new state object</strong></li>
+                    
+                    <li class="fragment"><strong>Spread syntax</strong> makes a copy of the old state, and modifies that with the new properties</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>ES6 Spread Syntax again!</h3>
+<pre class="fragment"><code contenteditable class="javascript">
+function lightSwitchReducer(oldState = {}, action) {
+  switch (action.type) {
+    case 'SWITCH_TOGGLED':
+      return {
+        ...state,
+        lightIsOn: !state.lightIsOn, 
+      };
+  }
+}
+</code></pre>
+<p class="fragment">Why can't we just do this?</p>             
+<pre class="fragment"><code contenteditable class="javascript">
+function lightSwitchReducer(oldState = {}, action) {
+  switch (action.type) {
+    case 'SWITCH_TOGGLED':
+      state.lightIsOn = !state.lightIsOn;
+      return state;
+  }
+}
+</code></pre>
+                  <p class="fragment">Because we need <strong>pure functions</strong>: we can't modify state</p>
+
+                </section>
+                
+
+                <section>
+                    <h2>Stretch break!</h2>
+                    <img src="img/cat_stretch.jpg" alt="kitty!" />
+                </section>
+
+
 
 
                                 <section>
@@ -268,10 +488,10 @@
                 <section>
                   <h3>Redux-thunk: Actions with Side Effects</h3>
                   <ul>
-                    <li>Middleware</li>
-                    <li>Redux-thunk action creators can return a normal action OR a function</li>
-                    <li>The 'inner function' gets 2 parameters: the <code>dispatch</code> function and a <code>getState</code> function</li>
-                    <li>That <code>getState</code> parameter is great because you can grab any part of the state tree!</li>                      
+                    <li class="fragment">Middleware</li>
+                    <li class="fragment">Redux-thunk action creators can return a normal action OR a function</li>
+                    <li class="fragment">The 'inner function' gets 2 parameters: the <code>dispatch</code> function and a <code>getState</code> function</li>
+                    <li class="fragment">That <code>getState</code> parameter is great because you can grab any part of the state tree!</li>                      
                 </section>
 
                 <section>
@@ -342,73 +562,6 @@
 </code></pre>                  
                 </section>
                 
-                <section>
-                  <h3>Reducers</h3>
-                  <p><strong>Reducers</strong> are functions that take <strong>state</strong> and an <strong>action</strong> and return a <strong>new state</strong>
-
-<pre class="fragment"><code contenteditable class="javascript">
-function usersReducer(state = {}, action) {
-  switch (action.type) {
-    case 'LOGGED_IN':
-      return {
-        ...state,
-        loggedIn: true
-      };
-    case 'LOGGED_OUT':
-      return {
-        ...state,
-        loggedIn: false
-      };
-    default:
-      return state;
-  }
-}
-  </code></pre>
-                </section>
-
-                <section>
-                  <h3>Unpacking Reducers</h3>
-                  <ul>
-                    <li class="fragment">Reducers must be <strong>pure functions with no side effects</strong></li>
-                    <li class="fragment">The reducer function is what defines how the new state should look, but we can't actually <strong>modify</strong> the old state</li>
-                    <li class="fragment">A reducer takes the <strong>old state object</strong>, and based on the <strong>action</strong>, returns a <strong>new state object</strong></li>
-                    
-                    <li class="fragment"><strong>Spread syntax</strong> makes a copy of the old state, and modifies that with the new properties</li>
-                  </ul>
-                </section>
-
-                <section>
-                  <h3>ES6 Spread Syntax again!</h3>
-<pre class="fragment"><code contenteditable class="javascript">
-function lightSwitchReducer(oldState = {}, action) {
-  switch (action.type) {
-    case 'SWITCH_TOGGLED':
-      return {
-        ...state,
-        lightIsOn: !state.lightIsOn, 
-      };
-  }
-}
-</code></pre>
-<p class="fragment">Why can't we just do this?</p>             
-<pre class="fragment"><code contenteditable class="javascript">
-function lightSwitchReducer(oldState = {}, action) {
-  switch (action.type) {
-    case 'SWITCH_TOGGLED':
-      state.lightIsOn = !state.lightIsOn;
-      return state;
-  }
-}
-</code></pre>
-                  <p class="fragment">Because we need <strong>pure functions</strong>: we can't modify state</p>
-
-                </section>
-
-                <section>
-                    <h2>Stretch break!</h2>
-                    <img src="img/cat_stretch.jpg" alt="kitty!" />
-                </section>
-
                 <section>
                   <h3>Connected "Smart" Components</h2>
                   <ul>
