@@ -431,6 +431,15 @@ function usersReducer(state = {}, action) {
                 </section>
 
                 <section>
+                  <h3>State Slices</h3>
+                  <ul>
+                    <li class="fragment">Each "slice" of state gets its own reducer, so your reducer functions don't have to navigate complex nested objects.</li>
+                    <li class="fragment">Slices are discrete logical sections of your state - user, search, todos. You can break them up the way you want.</li>
+                    <li class="fragment">Redux's <strong>combine-reducer</strong> function combines all the reducers into the "state tree".</li>
+                  </ul>
+                </section>
+                                
+                <section>
                   <h3>Unpacking Reducers</h3>
                   <ul>
                     <li class="fragment">Reducers must be <strong>pure functions with no side effects</strong></li>
@@ -743,36 +752,48 @@ function filterReducer(previousState = initialState, action) {
 
                 <section>
                   <h3>Adding new features: Connected component</h3>
-                  <img src="img/connected-filter-component.png" />
-<!-- <pre class="fragment"><code contenteditable class="javascript">                   -->
-<!-- // App.js -->
-<!-- import { Component } from 'react' -->
-<!-- import { bindActionCreators } from 'redux' -->
-<!-- import { connect } from 'react-redux' -->
 
-<!-- import * as filterActionCreators from '../state/actions/filter-action-creators.js'; -->
+<pre class="fragment"><code contenteditable class="javascript">
+// App.js
+import { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
+import * as filterActionCreators from '../state/actions/filter-action-creators.js';
                   
-<!-- class FilterContainer extends Component { -->
-<!--   render() { -->
-<!--     // Injected by react-redux: -->
-<!--     let { dispatch } = this.props -->
-<!--     let boundActionCreators = bindActionCreators(filterActionCreators, dispatch) -->
-<!--     return ( -->
-<!--       <Filter {...boundActionCreators} /> -->
-<!--     ); -->
-<!--   } -->
-<!-- } -->
-<!-- </code></pre> -->
+class FilterContainer extends Component {
+  render() {
+    // Injected by react-redux:
+    let { dispatch } = this.props
+    let boundActionCreators = bindActionCreators(filterActionCreators, dispatch)
+    return (
+      <Filter {...boundActionCreators} />
+    );
+  }
+}
+</code></pre>
 </section>
 
                 <section>
-                    <h3>Homework (optional)</h3>
-                    <ol>
-                        <li>Describe a next-level homework task for students to tackle</li>
-                        <li>Be sure to include solutions to this and all exercises, including bonus items.</li>
-                    </ol>
-                    <p><br />Don't feel you need to finish this right away! Check into #[slack-room-name] for follow-up and questions.</p>
+                  <h3>Let's Develop It</h3>
+                  <p>Let's use what we learned from Redux to write an app that grabs data from Meetup or Spotify and displays it.</p>
+                  <ul>
+                    <li>Use the <code>sample-spotify-app</code> or <code>sample-meetup-app</code> in the repo for this class. The reducers are set up for you.</li>
+                    <li>Components:
+                      <ul>
+                        <li>a button to 'fetch' the items from the API, </li>
+                        <li>'Event' or 'Playlist' or 'Song' tiles to display them.</li>
+                      </ul>
+                    </li>
+                    <li>Actions:<ul>
+                        <li>userRequestedFetch</li>
+                        <li>userFetchSucceeded</li>
+                        <li>userLIKEDitem</li>
+                      </ul>
+                    </li>
+                  </ul>
                 </section>
+
                 <section>
                     <h3>What next?</h3>
                     <ol>
