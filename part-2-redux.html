@@ -254,10 +254,24 @@ someActions = [
                 </section>
 
                 <section>
+
+                    <h3>Dispatching Actions</h3> 
+                    <li class="fragment">We need to <strong>dispatch</strong> different actions from different parts of the UI.</li>
+                  <span class="fragment">React: <code>views/login-form.js</code></span>
+<pre class="fragment"><code contenteditable class="javascript">
+    handleLogoutClick = () => {
+      const { dispatch } = this.props;
+      dispatch({type: "USER_LOGGED_OUT"}),
+    }
+</code></pre>
+
+                </section>
+
+
+                <section>
                   <h3>Action Creators</h3>
                   <ul>
-                    <li class="fragment">We need to <strong>dispatch</strong> different actions from different parts of the UI.</li>
-                    <li class="fragment">To access our actions, create functions that return those actions, which can be called from the UI</li>
+                    <li class="fragment">To access our actions and make our React components cleaner, create functions that return those actions, which can be called from the UI</li>
                     <li class="fragment">They allow us to pass different information to the actions as function arguments so that the actions are reusable.</li>
                     <li class="fragment">These functions are called <strong>action creators</strong>.</li>
                   </ul>
@@ -280,8 +294,8 @@ someActions = [
                   <span class="fragment">React: <code>views/login-form.js</code></span>
 <pre class="fragment"><code contenteditable class="javascript">
     handleLogoutClick = () => {
-      const { userLoggedOut } = this.props;
-      userLoggedOut();
+      const { dispatch, userLoggedOut } = this.props;
+      dispatch(userLoggedOut());
     }
 </code></pre>
 
@@ -301,8 +315,8 @@ someActions = [
                   <span class="fragment">React: <code>views/todo-list.js</code></span>
 <pre class="fragment"><code contenteditable class="javascript">
     handleDeleteItem = () => {
-      const { itemDeleted, itemId } = this.props;
-      itemDeleted(itemId);
+      const { itemDeleted, itemId, dispatch } = this.props;
+      dispatch(itemDeleted(itemId));
     }
 </code></pre>
                   <span class="fragment">Redux: <code>state/actions/todo-list-action-creators.js</code></span>
@@ -360,8 +374,8 @@ someActions = [
                                   </ul>
 <pre class="fragment"><code contenteditable class="javascript">
     handleMenuItemSelection = (item) => {
-      const { menuItemSelected } = this.props;
-      menuItemSelected(item);
+      const { menuItemSelected, dispatch } = this.props;
+      dispatch(menuItemSelected(item));
     }
 </code></pre>
                                 </section>
@@ -616,6 +630,22 @@ mapStateToProps = (state) => {
 };
 </code></pre>  
                 </section>
+                
+                <section>
+                  <h3>mapStateToProps</h2>
+                  <ul>
+                    <li>The props you give to a component should be the exact information it needs. Don't pass it entire state slices.</li>
+                    <li>Props should contain minimal nesting.</li>
+                  </ul>
+<pre class="fragment"><code contenteditable class="javascript">
+mapStateToProps = (state) => {
+  isMenuOpen: state.menu.isOpen,
+  menuOptionSelected: state.menu.optionSelected,
+  menuOptions: state.menu.options,
+  formattedOptions: customFormattingFunction(state.menu.options),
+};
+</code></pre>  
+                </section>
 
                 <section>
                   <h3>Connecting a Smart Component to Action Creators</h3>
@@ -624,8 +654,10 @@ mapStateToProps = (state) => {
                     <li class="fragment">Combines action creators with the <code>dispatch</code> function</li>
                     <li class="fragment"><code>var boundActions = bindActionCreators(actionCreators, dispatch)</code></li>
                     <li class="fragment">The bound actions can be passed to "dumb" components as props</li>
+                    <li class="fragment">The bound actions already know to dispatch the actions they create, so you don't have to tell them explicitly.</li>
                   </ul>                                             
                 </section>
+                
 
                 <section>
 <pre style="position: relative; left: -200px; top: -100px; width: 1200px;"><code style="max-width: 100%; max-height: 600px;" contenteditable class="javascript">
@@ -669,6 +701,27 @@ class GroceryList extends Component {
 </code></pre>
                 </section>
 
+                <section>
+                  <h3>BindActionCreators: <br/> Troubleshooting hint</h3>
+                  <p>Smart components bind actions with the 'dispatch' function <strong>for their children.</strong> If you need to dispatch an action from a smart component, you need to use <code>dispatch</code>.</p>
+                  <p>If your action creator function isn't being executed, check that the dispatch function is being called!</p>
+                  <pre class="fragment"><code style="max-width: 100%;" contenteditable class="javascript">
+class GroceryListContainer extends Component {
+  componentWillMount() {
+    const { getGroceryItems, dispatch } = this.props;
+    dispatch(getGroceryItems());
+  }
+  render() {
+    // Injected by react-redux:
+    let { dispatch } = this.props
+    let boundActionCreators = bindActionCreators(groceryActionCreators, dispatch)
+    return (
+      &lt;GroceryList {...boundActionCreators}/&gt;
+    );
+  }
+}
+      </code></pre>
+                </section>
                 <section>
                   <h3>Adding a new feature or component</h3>
                   <h4>Break it down</h4>
@@ -774,6 +827,50 @@ class FilterContainer extends Component {
 }
 </code></pre>
 </section>
+
+
+                <section>
+                  <h3>Extra Credit: Selectors</h3>
+                  <p>Selector functions are like saved queries you can use to derive a specific piece of information from the state tree<p>
+                  <p>Using the 'reselect' library gives us some advantages:</p>
+                  <ul>
+                    <li class="fragment">Perform calculations/derivations from your raw data, so the state tree doesn't need to store them.</li>
+                    <li class="fragment">Memoized by reference</li>
+                    <li class="fragment">Can take other selector functions as arguments</li>
+                  </ul>
+                </section>
+                
+                <section>
+                  <h3>Selectors</h3>
+
+<pre class="fragment"><code style="max-width: 100%;" contenteditable class="javascript">
+import { createSelector } from 'reselect'
+
+function getUserLevel = (state) => state.user.account.level
+function getMembershipTiers = (state) => state.membership.tiers
+
+function userPaymentByTierSelector(userTier, tiers) {
+  return tiers[userTier] >= tiers.premier
+}
+
+export const userCanAccess = createSelector(
+  getUserLevel, 
+  getMembershipTiers,
+  userPaymentByTierSelector
+)
+
+// meanwhile, in Payment.js component:
+import { userCanAccessPremier } from './user-selectors';
+
+mapStateToProps = (state) => {
+  username: state.user.name
+  userHasPremierAccess: userCanAccessPremier(state)
+}
+
+
+</code></pre>
+                </section>
+
 
                 <section>
                   <h3>Let's Develop It</h3>
