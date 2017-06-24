@@ -14,7 +14,10 @@ class App extends Component {
         }
     }
     getData() {
-        fetchJsonp(meetupUrl).then(res => res.json()).then(json => json.results).then(meetups => {
+        fetchJsonp(meetupUrl)
+        .then(response => response.json())
+        .then(json => json.results)
+        .then(meetups => {
             this.setState({ meetups });
         });
     }

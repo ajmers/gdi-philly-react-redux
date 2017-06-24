@@ -136,10 +136,10 @@
                   <h3>React - What is it</h3>
                     <p>What can you do with React?
                       <ul>
-                        <li>create reusable HTML components</li>
-                        <li>attach interactivity to HTML components with event handlers</li>
-                        <li>see your view logic alongside your HTML templates</li>
-                        <li>utilize the full power of the Javascript language for rendering components</li>
+                        <li class="fragment">create reusable HTML components</li>
+                        <li class="fragment">attach interactivity to HTML components with event handlers</li>
+                        <li class="fragment">see your view logic alongside your HTML templates</li>
+                        <li class="fragment">utilize the full power of the Javascript language for rendering components</li>
                       </ul>
                     </p>
                 </section>
@@ -153,9 +153,9 @@
                 <section>
                   <h3>Redux - What makes it special?</h3>
                     <ul>
-                      <li>One-way data flow</li>
-                      <li>Single data store describes entire application state</li>
-                      <li>Instead of directly modifying independent data 'models', any change to the application describes an alteration of the state tree</li>
+                      <li class="fragment">One-way data flow</li>
+                      <li class="fragment">Single data store describes entire application state</li>
+                      <li class="fragment">Instead of directly modifying independent data 'models', any change to the application describes an alteration of the state tree</li>
                     </ul>
                 </section>
                 
@@ -163,10 +163,10 @@
                   <h3>Benefits of React</h3>
                   <p>Virtual DOM</p>
                     <ul>
-                      <li>React keeps a 'virtual' copy of the DOM in memory</li>
-                      <li>When state changes in the application, first the changes are applied to the virtual DOM</li>
-                      <li>React diffing engine handles re-renders of only the smallest necessary changes to the actual DOM</li>
-                      <li>Instead of keeping a list of values to 'watch' (the way Angular or Backbone does), React re-renders DOM elements based on this DOM-virtual DOM comparison.</li>
+                      <li class="fragment">React keeps a 'virtual' copy of the DOM in memory</li>
+                      <li class="fragment">When state changes in the application, first the changes are applied to the virtual DOM</li>
+                      <li class="fragment">React diffing engine handles re-renders of only the smallest necessary changes to the actual DOM</li>
+                      <li class="fragment">Instead of keeping a list of values to 'watch' (the way Angular or Backbone does), React re-renders DOM elements based on this DOM-virtual DOM comparison.</li>
                     </ul>
                 </section>
 
@@ -174,9 +174,35 @@
                   <h3>Benefits of React</h3>
                   <p>Templating power of Javascript</p>
                   <ul>
-                    <li>Traditional templating languages (Handlebars, Mustache, Jade, EmbeddedJS, Underscore) contain pared-down logic for things like conditionals ('if'), looping, etc.
-                    <li>JSX - React's way of combining HTML templates with logic - facilitates native Javascript for template logic, instead of stripping out a subset of logic</li>
+                    <li class="fragment">Traditional templating languages (Handlebars, Mustache, Jade, EmbeddedJS, Underscore) contain pared-down logic for things like conditionals ('if'), looping, etc.
+ <pre class="fragment"><code contenteditable class="javascript">
+<div id="comments">
+  {{#each comments}}
+  <h2><a href="/posts/{{../permalink}}#{{id}}">{{title}}</a></h2>
+  <div>{{body}}</div>
+  {{/each}}
+</div>
+ </code></pre> 
+                </section>
+
+                <section>
+                  <h3>Benefits of React</h3>
+                  <p>Templating power of Javascript (cont'd)</p>
+                  <ul>
+                    <li class="fragment">JSX - React's way of combining HTML templates with logic - facilitates native Javascript for template logic, instead of stripping out a subset of logic</li>
                   </ul>
+
+ <pre class="fragment"><code contenteditable class="javascript">
+const ListElement = (list) => {
+  return (
+    <ul class="list">
+      {list.map(listElement => {
+        <li>{listElement}</li>
+      })}
+    </ul>
+  );
+}
+ </code></pre> 
                 </section>
                 
                 <section>
@@ -201,9 +227,10 @@
                 <section>
                     <h3>ES6</h3>
                     <ul>
-                      <li>Next step in evolution of Javascript</li>
-                      <li>Also known as ES2015</li>
-                      <li>Natively supports features that had previously been covered by libraries (underscore.js, Coffeescript, q)</li>
+                      <li class="fragment">Next step in evolution of Javascript</li>
+                      <li class="fragment">Also known as ES2015</li>
+                      <li class="fragment">Natively supports features that had previously been covered by libraries (underscore.js, Coffeescript, q)</li>
+                      <li class="fragment"><a href="https://babeljs.io/repl/">Play with ES6! </a></li>
                     </ul>
                 </section>
 
@@ -211,6 +238,15 @@
                     <h3>ES6</h3>
                     <h2>Template strings</h2>
                     <p>Don't need to concatenate strings and variables <br/> with <code>+</code> anymore</p>
+
+ <pre class="fragment"><code contenteditable class="javascript">
+  function getApiUrl(clientName, productName) {
+    // assume clientName = GDI, productName = computer
+    // should return "api.myapp.com/client/GDI/product/computer"
+  
+  }
+</code></pre> 
+<p class="fragment">With ES6 template strings</p>
 <pre class="fragment"><code contenteditable class="javascript">
   var baseUrl = "http://api.sample-app.com";
   var companyId = "sears";
@@ -223,7 +259,7 @@
                 <section>
                     <h3>ES6</h3>
                     <h2>Destructuring Syntax</h2>
-                    <p>How do we get values out of an object to work with them?</p>
+                    <p>How do we get properties out of an object?</p>
 <pre class="fragment"><code contenteditable class="javascript">
   var pet = {
     type: "cat",
@@ -231,13 +267,15 @@
     age: "3",
     color: "tabby"
   };
-
-  function printNametagForPet(pet) {
+</code></pre>
+<p class="fragment">How would we make a function that takes a "pet" and prints out a license with its info?</p>
+<pre class="fragment"><code>
+  function printLicenseForPet(pet) {
     var name = pet.name;
     var age = pet.age;
     var color = pet.color;
     var type = pet.type;    
-    console.log(`This is a nametag for a pet ${type} named ${name}, 
+    console.log(`This is a license for a pet ${type} named ${name}, 
       who is ${age} years old and ${color} colored.`);
   }
 </code></pre>
@@ -245,6 +283,7 @@
                 <section>
                     <h3>ES6</h3>
                     <h2>Destructuring Syntax</h2>
+                    <p>With destructuring, we can reduce this repetition and grab everything whatever properties we want all at once.</p>
 <pre class="fragment"><code contenteditable class="javascript">
   var pet = {
     type: "cat",
@@ -300,7 +339,7 @@
                     <h2>Arrow functions</h2>
                     <ul>
                       <li>For when you get tired of writing <code>function</code></li>
-                      <li>Takes care of context binding (<code>function a() {}.bind(this)</code>)</li>
+                      <li>Removes the need for context binding (<code>function a() {}.bind(this)</code>) because it doesn't have its own <code>this</code></li>
                     </ul>
 <pre class="fragment"><code contenteditable class="javascript">
   var clickHandler = function (e) {
@@ -354,7 +393,54 @@
   ["<li>line 1</li>", "<li>line 2</li>", "<li>line 3</li>", 
    "<li>line 4</li>", "<li>line 5</li>"]
 </code></pre>
+                </section>
 
+                <section>
+                  <h3>ES6</h3>
+                  <h2>Classes</h2>
+                  <p>ES6 Classes are a more user-friendly way of defining objects with properties and methods</p>
+<pre class="fragment"><code>
+  class Pet {
+    constructor(name, type) { // The constructor method of a class is special and will always be called
+                              // on instantiation of the class
+      this.name = name;
+      this.type = type;
+    }
+    sayHello() {
+      if (this.type === 'cat') {
+        console.log("Meow");
+      } else if (this.type === 'dog') {
+        console.log("Woof!");
+      }
+    }
+  }
+</code></pre>
+                </section>
+
+                <section>
+                  <h3>ES6</h3>
+                  <h2>Classes, cont'd</h2>
+<pre class="fragment"><code>
+  var fido = new Pet('Fido', 'dog');
+  fido.sayHello();  // what happens?
+</code></pre>
+<p class="fragment">You can also add special functionality by extending classes which we will see in React</p>
+<pre class="fragment"><code>
+  class Dog extends Pet {
+    constructor(name) {
+      super(name, 'dog')
+    } 
+    greet() {
+      var greeting = Math.floor(Math.random() * 2); // generates a random number between 1 and 2
+      switch (greeting) {
+        case 1:
+          console.log(`${this.name} wags tail`);
+        case 2:
+          console.log(`${this.name} gives kisses`);
+      }
+    }
+  }
+</code></pre>
                 </section>
                 
                 <section>
@@ -454,10 +540,10 @@
                   <h3>A quick word on Webpack & build tools</h3>
                   <p><code>create-react-app</code> uses <strong>Webpack</strong> - a powerful tool to compile all your files into one neat "bundle".</p>
                   <ul>
-                    <li>Takes care of transpiling ES6, JSX - so you can write the most up-to-date version of Javascript & React that some older browsers don't support.</li>
-                    <li>Imports all your SASS, images, and fonts</li>
-                    <li>Requires myriad configuration options, but create-react-app picks common ones that allow us to get up and running quickly.</li>
-                    <li>GDI Philly has a class on build tools for more information.</li>
+                    <li class="fragment">Takes care of transpiling ES6, JSX - so you can write the most up-to-date version of Javascript & React that some older browsers don't support.</li>
+                    <li class="fragment">Imports all your CSS/SASS, images, and fonts</li>
+                    <li class="fragment">Requires myriad configuration options, but create-react-app picks common ones that allow us to get up and running quickly.</li>
+                    <li class="fragment">GDI Philly has a class on build tools for more information.</li>
                   </ul>
 
                 </section>
@@ -474,7 +560,7 @@
                     
 <pre class="fragment"><code contenteditable class="javascript">
 $ npm install -g create-react-app
-$ create-react-app my-app
+$ create-react-app grocery-list 
 
 </code></pre>
 
@@ -533,11 +619,11 @@ $ create-react-app my-app
 
                                   <h3>JSX: What is it?</h3>
                                   <ul>
-                                    <li>JSX is a <strong>preprocessor step that adds XML syntax to JavaScript.</strong></li>
-                                    <li>You can definitely use React without JSX but JSX makes React a lot more elegant.</li>
-                                    <li>Just like XML, JSX tags have a tag name, attributes, and children.</li>
+                                    <li class="fragment">JSX is a <strong>preprocessor step that adds XML syntax to JavaScript.</strong></li>
+                                    <li class="fragment">You can definitely use React without JSX but JSX makes React a lot more elegant.</li>
+                                    <li class="fragment">Just like XML, JSX tags have a tag name, attributes, and children.</li>
                                   </ul>
-                                  <a href="http://buildwithreact.com/tutorial/jsx">(Source)</a>
+                                  <a class="fragment" href="http://buildwithreact.com/tutorial/jsx">(Source)</a>
 
                                 </section>
                                 
@@ -571,6 +657,14 @@ class App extends Component {
                     <li class="fragment"><code>className</code> instead of <code>class</code> (because <code>class</code> is a reserved keyword in Javascript)</li>
                     <li class="fragment">Event names: <code>onClick, onKeyUp, onChange</code> take care of cross-browser compatibility</li>
                   </ul>
+                </section>
+
+                <section>
+                  <h3>JSX Under the Hood</h3>
+                  <p>
+                    <code>&lt;div className="title"&gt;Cookie Recipe&lt;/div&gt;</code> will be compiled to 
+                      <code>React.createComponent('div', {className: 'title'}, 'Cookie Recipe')</code>
+                  </p>
                 </section>
                 
                 <section>
@@ -624,21 +718,35 @@ class App extends Component {
                                        
                 </section>
 
+                               <h3>Style: a special prop</h3>
+                               <p>React components accept a special <code>style</code> prop, which can be used in place of SASS/CSS stylesheets.</p>
+                               <p>Note:</p>
+                               <ul>
+                                   <li>camel-cased properties</li>
+                                   <li>doesn't take care of browser prefixes</li>
+                                   <li>need <code>{}</code> for JavaScript evaluation, with <br/>
+                                      a style object <code>{ color: 'blue', fontSize: 16 }</code> inside </li>
+                                 </ul>
+                             </section>
+                          <section>
+                               <h3>Style: a special prop</h3>
+                               <img src="img/style-prop.png" alt="Style prop" />
+                             </section>
+
                 <section>
-                  <h3>Style: a special prop</h3>
-                  <p>React components accept a special <code>style</code> prop, which can be used in place of SASS/CSS stylesheets.</p>
-                  <p>Note:</p>
-                  <ul>
-                    <li>camel-cased properties</li>
-                    <li>doesn't take care of browser prefixes</li>
-                    <li>need <code>{}</code> for JavaScript evaluation, with <br/>
-                      a style object <code>{ color: 'blue', fontSize: 16 }</code> inside </li>
-                  </ul>                  
-                </section>
-                <section>
-                  <h3>Style: a special prop</h3>
-                  <img src="img/style-prop.png" alt="Style prop" />
-                </section>
+                  <h3>PropTypes</h3>
+                  <p>React's PropTypes allow us to make sure that the props being passed to our component are the right type, which makes debugging easier.</p>
+
+<pre class="fragment"><code contenteditable class="javascript">
+Meetup.propTypes = {
+    data: PropTypes.shape({
+        description: PropTypes.string,
+        name: PropTypes.string,
+        rsvp_limit: PropTypes.number,
+    }),
+}
+</code></pre>
+</section>                
                 
                 <section>
                   <h3>Components</h3>
@@ -725,9 +833,9 @@ class App extends Component {
                   <h3>Let's Develop It</h3>
                   <p>Back to our Meetup events component</p>
                   <ul>
-                    <li class="fragment">Inheriting from the Component protoptype, we get some 'lifecycle methods' in our component.</li>
+                    <li class="fragment">Inheriting from the Component prototype, we get some 'lifecycle methods' in our component.</li>
                     <li class="fragment">The <code>componentDidMount</code> method runs as soon as the component has rendered - this is a good place to fetch data.</li>
-                    <li class="fragment">Back to the magic of React: unless you specify otherwise (in the <code>shouldComponentUpdate</code> method), anytime a component's state or props update, its render method will be called again.</li>
+                    <li class="fragment">Unless you specify otherwise (in the <code>shouldComponentUpdate</code> method), anytime a component's state or props update, its render method will be called again.</li>
                   </ul>
                 </section>
 
@@ -766,22 +874,6 @@ class App extends Component {
                     <li class="fragment">Rename the component and remove everything but the <code>render</code> function for now.</li>
                   </ul>
                 </section>
-
-                <section>
-                  <h3>PropTypes</h3>
-                  <p>React's PropTypes allow us to make sure that the props being passed to our component are the right type, which makes debugging easier.</p>
-
-<pre class="fragment"><code contenteditable class="javascript">
-Meetup.propTypes = {
-    data: PropTypes.shape({
-        description: PropTypes.string,
-        name: PropTypes.string,
-        rsvp_limit: PropTypes.number,
-    }),
-}
-</code></pre>
-</section>                
-
                 <section>
                     <h2>Q's?</h2>
                 </section>
