@@ -170,7 +170,7 @@
       <button onClick={this.handleSubmitClick}>Submit</button>
     }
 </code></pre>         
-                      <li class='fragment'>Business logic happens elsewhere (in <strong>action creators</strong>, if you're curious! More on that later!)</li>
+                      <li class='fragment'>Business logic happens elsewhere (in <strong>action creators</strong>! More on that soon!)</li>
                     </ul>
 </section>
 
@@ -301,7 +301,6 @@ someActions = [
 
 <span class="fragment">Redux: <code>state/actions/login-action-creators.js</code></span>
 <pre class="fragment"><code contenteditable class="javascript">
-    // Meanwhile, in userActions.js
     userLoggedOut = () => {
       return {
         type: "USER_LOGGED_OUT",
@@ -321,7 +320,6 @@ someActions = [
 </code></pre>
                   <span class="fragment">Redux: <code>state/actions/todo-list-action-creators.js</code></span>
 <pre class="fragment"><code contenteditable class="javascript">
-    // Meanwhile, in itemActions.js
     itemLoggedOut = (itemId) => {
       return {
         type: "ITEM_DELETED",
