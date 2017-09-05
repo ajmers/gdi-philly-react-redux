@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Girl Develop It Philly - React & Redux</title>
+		<title>Girl Develop It Philly - React</title>
 
-		<meta name="description" content="Introduction to the React library and Redux framework">
+		<meta name="description" content="Introduction to the React library">
 		<meta name="author" content="Anne Maiale">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="lib/css/zenburn.css">
 		<!-- light editor--><link rel="stylesheet" href="lib/css/light.css">
 		<!-- dark editor<link rel="stylesheet" href="lib/css/dark.css">-->
-		
+
 		<link rel="stylesheet" href="plugin/accessibility-helper/css/accessibility-helper.css">
 
 		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
@@ -34,7 +34,7 @@
 		</script>
 
 		<!-- If use the PDF print sheet so students can print slides-->
-		
+
 		<link rel="stylesheet" href="css/print/pdf.css" type="text/css" media="print">
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 		<!--[if lt IE 9]>
@@ -51,8 +51,7 @@
         <!-- Opening -->
 				<section>
           <img src="img/react-logo.png" width=200 alt="React logo" />
-          <img src="img/redux-logo.png" width=200 alt="Redux logo" />
-					<h1>React + Redux</h1>
+					<h1>React</h1>
                     <!-- <img src="img/circle-gdi-logo.png" alt="GDI Logo"/> -->
 				</section>
 
@@ -91,35 +90,21 @@
                     <ul>
                         <li>Who are you?</li>
                         <li>What do you hope to get out of this class?</li>
-                        <li>What is your favorite animal?</li>
+                        <li>What is your favorite season & why?</li>
                     </ul>
                 </section>
                 <section>
                   <h3>What we will cover: Part 1</h3>
                   <ul>
                     <li class ="fragment">React - what is it?</li>
-                    <li class ="fragment">Redux - what is it?</li>
                     <li class ="fragment">Benefits of React</li>
-                    <li class ="fragment">ES6</li>
                     <li class ="fragment">JSX</li>
                     <li class ="fragment">Props</li>
                     <li class ="fragment">State</li>
                   </ul>
                 </section>
-                <section>
-                  <h3>What we will cover: Part 2</h3>
-                  <ul>
-                    <li class ="fragment">Redux - what is it?</li>
-                    <li class ="fragment">State Tree</li>
-                    <li class ="fragment">The Redux Cycle</li>
-                    <li class ="fragment">Action Creators</li>
-                    <li class ="fragment">Reducers</li>
-                    <li class ="fragment">Smart "Connected" Views</li>
-                    <li class ="fragment">"Dumb" Components</li>
-                  </ul>
-                </section>
                 <!-- Class content goes here -->
-                
+
                 <section>
                   <h3>React - What is it</h3>
                   <ul>
@@ -143,22 +128,7 @@
                       </ul>
                     </p>
                 </section>
-                
-                <section>
-                  <h3>Redux - What is it?</h3>
-                    <p>Redux is a predictable state container for JavaScript apps.</p>
-                    <!-- http://redux.js.org/ -->
-                </section>
-                
-                <section>
-                  <h3>Redux - What makes it special?</h3>
-                    <ul>
-                      <li class="fragment">One-way data flow</li>
-                      <li class="fragment">Single data store describes entire application state</li>
-                      <li class="fragment">Instead of directly modifying independent data 'models', any change to the application describes an alteration of the state tree</li>
-                    </ul>
-                </section>
-                
+
                 <section>
                   <h3>Benefits of React</h3>
                   <p>Virtual DOM</p>
@@ -182,352 +152,9 @@
   <div>{{body}}</div>
   {{/each}}
 </div>
- </code></pre> 
+ </code></pre>
                 </section>
 
-                <section>
-                  <h3>Benefits of React</h3>
-                  <p>Templating power of Javascript (cont'd)</p>
-                  <ul>
-                    <li class="fragment">JSX - React's way of combining HTML templates with logic - facilitates native Javascript for template logic, instead of stripping out a subset of logic</li>
-                  </ul>
-
- <pre class="fragment"><code contenteditable class="javascript">
-const ListElement = (list) => {
-  return (
-    <ul class="list">
-      {list.map(listElement => {
-        <li>{listElement}</li>
-      })}
-    </ul>
-  );
-}
- </code></pre> 
-                </section>
-                
-                <section>
-                  <h3>Benefits of React</h3>
-                  <p>Templating power of Javascript</p>
-
- <pre class="fragment"><code contenteditable class="javascript">
-  function render() {
-    var flavors = ["peanut butter", "chocolate", "vanilla"];
-    return (
-      <div> My favorite ice cream flavors are 
-        {flavors.map(name => <strong>{name}</strong>).join (' and ')}.
-      </div>
-    );
-  }
-</code></pre> 
-                  <div class="fragment"> My favorite ice cream flavors are
-                    <strong>peanut butter</strong> and <strong>chocolate</strong> and <strong>vanilla</strong>.
-                  <div>
-                </section>
-
-                <section>
-                    <h3>ES6</h3>
-                    <ul>
-                      <li class="fragment">Next step in evolution of Javascript</li>
-                      <li class="fragment">Also known as ES2015</li>
-                      <li class="fragment">Natively supports features that had previously been covered by libraries (underscore.js, Coffeescript, q)</li>
-                      <li class="fragment"><a href="https://babeljs.io/repl/">Play with ES6! </a></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Template strings</h2>
-                    <p>Don't need to concatenate strings and variables <br/> with <code>+</code> anymore</p>
-
- <pre class="fragment"><code contenteditable class="javascript">
-  function getApiUrl(clientName, productName) {
-    // assume clientName = GDI, productName = computer
-    // should return "api.myapp.com/client/GDI/product/computer"
-  
-  }
-</code></pre> 
-<p class="fragment">With ES6 template strings</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var baseUrl = "http://api.sample-app.com";
-  var companyId = "sears";
-  var productName = "dishwasher";
-  var endpointUrl = `${baseUrl}/company/${companyId}/product/${productName}`;
-</code></pre>
-                </section>
-            
-
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Destructuring Syntax</h2>
-                    <p>How do we get properties out of an object?</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var pet = {
-    type: "cat",
-    name: "Pete",
-    age: "3",
-    color: "tabby"
-  };
-</code></pre>
-<p class="fragment">How would we make a function that takes a "pet" and prints out a license with its info?</p>
-<pre class="fragment"><code>
-  function printLicenseForPet(pet) {
-    var name = pet.name;
-    var age = pet.age;
-    var color = pet.color;
-    var type = pet.type;    
-    console.log(`This is a license for a pet ${type} named ${name}, 
-      who is ${age} years old and ${color} colored.`);
-  }
-</code></pre>
-                </section>
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Destructuring Syntax</h2>
-                    <p>With destructuring, we can reduce this repetition and grab everything whatever properties we want all at once.</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var pet = {
-    type: "cat",
-    name: "Pete",
-    age: "3",
-    color: "tabby"
-  };
-
-  function printNametagForPet(pet) {
-    var { name, type, color, age } = pet;
-    console.log(`This is a nametag for a pet ${type} named ${name}, 
-      who is ${age} years old and ${color} colored.`);
-  }
-</code></pre>
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Destructuring Syntax</h2>
-                    <p>Destructuring works with arrays too.</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var list = ['squirrel', 'bear', 'fox'];
-  function printThirdAnimal(listOf3Animals) {
-    var [ first, second, third ] = list;
-    console.log(`The third animal in the list was a ${third}`);
-  }
-</code></pre>
-                </section>
-
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Spread Syntax</h2>
-                    <p>This is for making a copy of an object with some modified properties</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var initialInputState = {
-    hasFocus: false,
-    isValid: true,
-    value: "",
-  };
-</code></pre>
-                    <p class="fragment">Click in form field - which properties change?</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var newInputState = {
-    ...initialInputState,
-    hasFocus: true,
-  };
-</code></pre>
-                </section>
-                
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Arrow functions</h2>
-                    <ul>
-                      <li>For when you get tired of writing <code>function</code></li>
-                      <li>Removes the need for context binding (<code>function a() {}.bind(this)</code>) because it doesn't have its own <code>this</code></li>
-                    </ul>
-<pre class="fragment"><code contenteditable class="javascript">
-  var clickHandler = function (e) {
-    e.preventDefault();
-    console.log("Button clicked");
-  }
-</code></pre>
-
-<pre class="fragment"><code contenteditable class="javascript">
-  var clickHandler = (e) => {
-    e.preventDefault();
-    console.log("Button clicked");
-  }
-</code></pre>
-                </section>
-
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Array methods - map</h2>
-                    <p>A concise way of looping through collections that will come in handy!</p>
-                    <p><code>for</code> loop:</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var array = ["javascript", "html", "css"]; 
-  for (var i = 0; i < array.length; i++) {
-    var item = array[i];
-    console.log("On day " + i + " of class we will cover " + item);  
-  }
-</code></pre>
-                    
-                    <p class="fragment">ES6 Array.map</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var array = ["javascript", "html", "css"]; 
-  array.map(function (item, i) {
-    console.log("On day " + i + " of class we will cover " + item);  
-  })
-</code></pre>
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Array methods - map</h2>
-                    <p>Array.map returns a new array of the results</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  var array = [1, 2, 3, 4, 5]; 
-  array.map(function (i) {
-    return "<li>line " + i + "</li>";
-  });
-</code></pre>
-<p class="fragment">Returns:<p>
-<pre class="fragment"><code>
-  ["<li>line 1</li>", "<li>line 2</li>", "<li>line 3</li>", 
-   "<li>line 4</li>", "<li>line 5</li>"]
-</code></pre>
-                </section>
-
-                <section>
-                  <h3>ES6</h3>
-                  <h2>Classes</h2>
-                  <p>ES6 Classes are a more user-friendly way of defining objects with properties and methods</p>
-<pre class="fragment"><code>
-  class Pet {
-    constructor(name, type) { // The constructor method of a class is special and will always be called
-                              // on instantiation of the class
-      this.name = name;
-      this.type = type;
-    }
-    sayHello() {
-      if (this.type === 'cat') {
-        console.log("Meow");
-      } else if (this.type === 'dog') {
-        console.log("Woof!");
-      }
-    }
-  }
-</code></pre>
-                </section>
-
-                <section>
-                  <h3>ES6</h3>
-                  <h2>Classes, cont'd</h2>
-<pre class="fragment"><code>
-  var fido = new Pet('Fido', 'dog');
-  fido.sayHello();  // what happens?
-</code></pre>
-<p class="fragment">You can also add special functionality by extending classes which we will see in React</p>
-<pre class="fragment"><code>
-  class Dog extends Pet {
-    constructor(name) {
-      super(name, 'dog')
-    } 
-    greet() {
-      var greeting = Math.floor(Math.random() * 2); // generates a random number between 1 and 2
-      switch (greeting) {
-        case 1:
-          console.log(`${this.name} wags tail`);
-        case 2:
-          console.log(`${this.name} gives kisses`);
-      }
-    }
-  }
-</code></pre>
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Let's Develop It</h2>
-                    <p>Use the <code>map</code> method, arrow functions, and template strings to take
-                    an array of names and return an array of numbered < li>s:
-
-<pre><code contenteditable class="javascript">
-  var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
-  var listNames = (array) => {
-    // your code here
- }
-</code></pre>
-<p class="fragment">Should return:</p>
-<pre class="fragment"><code contenteditable class="javascript">
-  ["<li>1. Alma </li>", 
-     "<li>2. Alexander </li>", 
-     "<li>3. Duane </li>", 
-     "<li>4. Gerard </li>", 
-     "<li>5. Lindsay </li>"]
-</code></pre>
-
-                </section>
-
-                <section>
-                    <h3>ES6</h3>
-                    <h2>One solution</h2>
-                    <p>Use the <code>map</code> method, arrow functions, and template strings to take
-                    an array of names and return an array of numbered < li>s:
-
-<pre><code contenteditable class="javascript">
-  var array = ["Alma", "Alexander", "Duane", "Gerard", "Lindsay"]; 
-  var listNames = (array) => {
-    return (
-      array.map((name, index) => {
-        return (< li>{index + 1}. {name}< /li>));
-      });
-    }
-</code></pre>
-
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2><code>let</code> and <code>const</code></h2>
-                    <ul>
-                      <li>Use in place of generic "var"</li>
-                      <li>Use <code>const</code> if the variable should be a constant</li>
-                      <li>Use <code>let</code> if the variable can be modified</li>
-                      <li><code>let</code> and <code>const</code> are block-scoped, not function-scoped</li>
-                    </ul>
-                </section>
-                
-                <section>
-                    <h3>ES6</h3>
-                    <h2>Modules</h2>
-                    <ul>
-                      <li class="fragment">Modules let us organize code into different files</li>
-                      <li class="fragment">ES6 natively supports modules, so we don't need RequireJS, CommonJS, etc</li>
-<pre class="fragment"><code contenteditable class="javascript">
-  // config.js
-  export var port = 3000
-  export function getAccounts(url) {
-    ...
-  }
-
-</code></pre>
-
-<pre class="fragment"><code contenteditable class="javascript">
-  // server.js
-  import { port, getAccounts } from 'module'
-  console.log(port) // 3000
-
-</code></pre>
-
-                </section>
-
-                <section>
-                    <h2>Stretch break!</h2>
-                    <img src="img/cat_stretch.jpg" alt="kitty!" />
-                </section>
-                
-                <section>
-                    <h3>React!</h3>
-                </section>
-                
                 <section>
                     <h3>Starting a React app</h3>
                     <a href="https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started">Facebook's create-react-app</a>
@@ -557,10 +184,10 @@ const ListElement = (list) => {
                     <li class="fragment">External dependencies are registered in <code>package.json</code> at the root of your project - so anyone trying to run your code has a record of all of its dependencies</li>
                     <li class="fragment">For this project, we need to use an npm module called <code>create-react-app</code></li>
                   </ul>
-                    
+
 <pre class="fragment"><code contenteditable class="javascript">
 $ npm install -g create-react-app
-$ create-react-app grocery-list 
+$ create-react-app trip-planner
 
 </code></pre>
 
@@ -574,7 +201,7 @@ $ create-react-app grocery-list
 ├── node_modules*
 .   ├──
 .   ├── (all dependencies go here!)
-.   └──                                 
+.   └──
 ├── package.json
 ├── public*
 │   ├── favicon.ico
@@ -597,10 +224,10 @@ $ create-react-app grocery-list
   "name": "sampleApp",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {           // <- npm modules we need in order 
+  "devDependencies": {           // <- npm modules we need in order
     "react-scripts": "0.8.5"     // to work with this code
   },
-  "dependencies": {              // <- npm modules that we need 
+  "dependencies": {              // <- npm modules that we need
     "react": "^15.4.2",          // for our code to run
     "react-dom": "^15.4.2"
   },
@@ -614,9 +241,22 @@ $ create-react-app grocery-list
                                        </code></pre>
 
                                 </section>
-                                
-                                <section>
 
+                                <section>
+                                  <h3>ES6 Classes</h3>
+                                  <p>create-react-app allows us to use all the features of ES6, a newer version of Javascript</p>
+                                  <ul>
+                                    <li>Classes are like wrappers that contain all the logic - including properties and methods (functions) -
+                                      for a particular 'thing'</li>
+                                    <li>React is primarily a presentational library so we will use classes to group presentational components -
+                                      buttons, text fields, menus</li>
+                                  </ul>
+                                </section>
+
+
+
+
+                                <section>
                                   <h3>JSX: What is it?</h3>
                                   <ul>
                                     <li class="fragment">JSX is a <strong>preprocessor step that adds XML syntax to JavaScript.</strong></li>
@@ -626,24 +266,23 @@ $ create-react-app grocery-list
                                   <a class="fragment" href="http://buildwithreact.com/tutorial/jsx">(Source)</a>
 
                                 </section>
-                                
+
                                 <section>
-                  
-                  <h3>JSX</h3>
-                  <p>Note: <code>classname</code> below should be <code>className</code> (slide deck weirdness!)</p>
-<pre class="fragment"><code contenteditable class="jsx">
+
+                                  <h3>JSX</h3>
+                                  <pre class="fragment"><code contenteditable class="jsx">
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      &lt;div className="App"&gt;
+        &lt;div className="App-header"&gt;
+          &lt;img src={logo} className="App-logo" alt="logo" /&gt;
+          &lt;h2&gt;Welcome to React&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;p className="App-intro"&gt;
+          To get started, edit &lt;code&gt;src/App.js&lt;/code&gt; and save to reload.
+        &lt;/p&gt;
+      &lt;/div&gt;
     );
   }
 }
@@ -662,16 +301,18 @@ class App extends Component {
                 <section>
                   <h3>JSX Under the Hood</h3>
                   <p>
-                    <code>&lt;div className="title"&gt;Cookie Recipe&lt;/div&gt;</code> will be compiled to 
-                      <code>React.createComponent('div', {className: 'title'}, 'Cookie Recipe')</code>
+                    <code>&lt;div className="title"&gt;Cookie Recipe&lt;/div&gt;</code> will be compiled to
+                    <br/>
+                    <code>React.createComponent('div', {className: 'title'}, 'Cookie Recipe')</code>
                   </p>
                 </section>
-                
+
                 <section>
                   <h3>Props</h3>
-                  <p><strong>Props</strong> are the pieces of information passed from one component to its child component</p>
+                  <p class="fragment"><strong>Props</strong> are the pieces of information passed from one component to its child component</p>
+                  <p class="fragment">React components are basically <strong>functions that take props to create HTML markup.</strong> </p>
                 </section>
-                                
+
                 <section>
                   <h3>Props</h3>
                   <p>What are the props being passed to this React component?</p>
@@ -692,6 +333,11 @@ class App extends Component {
                 </section>
 
                 <section>
+                  <h3>Let's Develop It</h3>
+                  <p>Let's have the 'App' render another component - we'll call it the 'AppName' component</p>
+                </section>
+
+                <section>
                   <h3>Literal vs. Interpreted Props</h3>
                   <p class="fragment">Some props take literal values like strings or numbers
                     <ul class="fragment">
@@ -704,20 +350,17 @@ class App extends Component {
                       <li><code>onClick={this.clickHandler}</code></li>
                       <li><code>onMouseEnter={() => console.log("MOUSE ENTERED"); }</code></li>
                                        </ul>
-                                       
-                </section>
-                  
-                <section>
-                  <h3>Proptypes</h3>
-                  <p>Proptypes tell the component what props it might receive, their types, and whether they are required.</p> 
-                    <ul class="fragment">
-                      <li>Helpful for reference working with a component so you know if "items" is an array, string, number, etc...</li>
-                      <li>The browser console will warn you if a component receives an unexpected prop, or doesn't receive a required one - great for debugging!</li> 
-                    
-                                       </ul>
-                                       
+
                 </section>
 
+
+
+                <section>
+                    <h2>Stretch break!</h2>
+                    <img src="img/cat_stretch.jpg" alt="kitty!" />
+                </section>
+
+                <section>
                                <h3>Style: a special prop</h3>
                                <p>React components accept a special <code>style</code> prop, which can be used in place of SASS/CSS stylesheets.</p>
                                <p>Note:</p>
@@ -727,8 +370,9 @@ class App extends Component {
                                    <li>need <code>{}</code> for JavaScript evaluation, with <br/>
                                       a style object <code>{ color: 'blue', fontSize: 16 }</code> inside </li>
                                  </ul>
-                             </section>
-                          <section>
+                </section>
+
+                <section>
                                <h3>Style: a special prop</h3>
                                <img src="img/style-prop.png" alt="Style prop" />
                              </section>
@@ -746,36 +390,8 @@ Meetup.propTypes = {
     }),
 }
 </code></pre>
-</section>                
-                
-                <section>
-                  <h3>Components</h3>
-                  <p>Reusable Components are the building block of React</p>
-                  <ul>
-                    <li class="fragment">These can be small style components, like <strong>styled buttons,</strong> <strong>section headers,</strong> <strong>form items</strong> that will be used throughout your app;</li>
-                    <li class="fragment">or app-specific components like the sidebar, header menu, or content-area.</li>                  
-                </section>
+</section>
 
-                <section>
-                  <h3>Components in Action</h3>
-                  <p>Let's find some repeated components on the <a href="https://www.meetup.com/Girl-Develop-It-Philadelphia/"> GDI Meetup page</a></p>
-                </section>
-
-                <section>
-                  <h3>Components in Action: </h3>
-                  <img src="img/gdi-meetups.png">
-                </section>
-
-                <section>
-                  <h3>Let's Develop It</h3>
-                  <p>Write a React component for a Meetup event</p>
-                  <ul>
-                    <li class="fragment">From your root directory, run <code>create-react-app meetup-event</code></li>
-                    <li class="fragment">To bypass the need to authenticate against Meetup's API, we need an npm module that grabs some data from Meetup without authentication using a prepared link.</li>
-                    <li class="fragment"><code>npm install --save fetch-jsonp</code></li>
-                    <li class="fragment">One more thing before we write a React component: component state.</li>
-                  </ul>
-                </section>
 
                 <section>
                   <h3>State</h3>
@@ -786,7 +402,7 @@ Meetup.propTypes = {
                     <li>The items in a grocery list app</li>
                     <li>The response from the Meetup API</li>
                   </ul>
-                </section>             
+                </section>
 
                 <section>
                   <h3>Setting Up State</h3>
@@ -795,7 +411,7 @@ Meetup.propTypes = {
 
                     <li class="fragment">Bonus: Remember Object-oriented programming? Our new component will <strong>inherit</strong> from React's <code>Component</code> <strong>prototype,</strong> and get custom methods and properties that we define.</li>
                   </ul>
-                 
+
 
 <pre class="fragment"><code contenteditable class="javascript">
 class App extends Component {
@@ -804,10 +420,10 @@ class App extends Component {
     this.state = {
        meetups: []
     }
-  }    
+  }
 }
-</code></pre> 
-                  
+</code></pre>
+
                  </section>
                 <section>
                   <h3>Accessing state</h3>
@@ -824,58 +440,9 @@ class App extends Component {
   addItem = (e) => {
     const { items } = this.state;
     items.push(e.value);
-    this.setState({ items: items }); 
-  }    
+    this.setState({ items: items });
+  }
 </code></pre>
-                </section>
-
-                <section>
-                  <h3>Let's Develop It</h3>
-                  <p>Back to our Meetup events component</p>
-                  <ul>
-                    <li class="fragment">Inheriting from the Component prototype, we get some 'lifecycle methods' in our component.</li>
-                    <li class="fragment">The <code>componentDidMount</code> method runs as soon as the component has rendered - this is a good place to fetch data.</li>
-                    <li class="fragment">Unless you specify otherwise (in the <code>shouldComponentUpdate</code> method), anytime a component's state or props update, its render method will be called again.</li>
-                  </ul>
-                </section>
-
-                <section>
-                  <h3>Fetch data in componentDidMount</h3>
-                  <ul>
-                    <li>URL to fetch GDI Philly events</li>
-                    <li class="fragment"><a href="https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=girl-develop-it-philadelphia&photo-host=public&page=20&fields=&order=time&desc=false&status=upcoming&sig_id=16894471&sig=dba259eb1fd05294f55c42dc4dbc780678899228">Follow this link and copy the URL</a></li>
-                    <li class="fragment">Once the <code>fetchJsonp</code> gets data and we transform the json into a usable JS object, call <code>setState</code> to add it to the component's state object, which is accessible from the render method.</li>
-                    <li class="fragment">What type of data structure do you think we'll get for the events?</li>
-                    </ul>
-                </section>
-
-                <section>
-                  <h3>The render method</h3>
-                  <ul>
-                    <li class="fragment">The response from Meetup is an object with a <code>results</code> key, which is an array of event objects.</li>
-                    <li class="fragment">We need a new component that will be repeated for each Meetup object: a Meetup component!</li>
-
-<pre class="fragment"><code contenteditable class="javascript">
-    render() {
-        const { meetups } = this.state;
-        return (
-            <div className="meetups">
-                { meetups.map(meetup => <Meetup data={meetup} />)}
-            </div>
-        );
-    }
-</code></pre>
-                </section>
-
-                <section>
-                  <h3>The new Meetup component</h3>
-                  <ul>
-                    <li class="fragment">Copy our component file (App.js) and name it Meetup.js</li>
-                    <li class="fragment">Rename the component and remove everything but the <code>render</code> function for now.</li>
-                  </ul>
-                </section>
-                <section>
-                    <h2>Q's?</h2>
                 </section>
 
                 <section>
@@ -886,15 +453,6 @@ class App extends Component {
                     <li>Use <code>fetch</code> instead of <code>fetchJsonp</code>.</li>
                     <li>Notice how in our Meetup app, we had to deconstruct the response from the API and pull out the 'results' key - you'll have to do something similar if the Spotify API returns metadata.</li>
                     <li>Create a new <code>Artist</code> component that renders each individual fact.</li></ul>
-                </section>
-
-                <section>
-                  <h3>Homework BONUS</h2>
-                  <ul>
-                    <li>Try fetching a new artist every 5 seconds using the <code>setInterval</code> function in the <code>componentDidMount</code> method of your App component, and ADDING that to your list.</li>
-                    <li>Try a different Spotify endpoint if you want. <a href="https://developer.spotify.com/web-api/user-guide/">Spotify's API docs</a></li>
-                  </ul>
-                    
                 </section>
 
 			</div>
