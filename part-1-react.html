@@ -318,10 +318,6 @@ class App extends Component {
                   </ul>
                 </section>
 
-                <section>
-                  <h3>Let's Develop It</h3>
-                  <p>Let's have the 'App' render another component - we'll call it the 'AppName' component</p>
-                </section>
 
                 <section>
                   <h3>Literal vs. Interpreted Props</h3>
@@ -329,6 +325,7 @@ class App extends Component {
                     <ul class="fragment">
                       <li><code>className="app-header"</code></li>
                       <li><code>itemCount=3</code></li>
+                    </ul>
                   </p><br/>
                   <p class="fragment">If the value of the prop is Javascript code (including a function reference or anonymous function), it needs to be wrapped in brackets: <code>{}</code>
                     <ul class="fragment">
@@ -339,6 +336,48 @@ class App extends Component {
 
                 </section>
 
+
+
+                <section>
+                  <h3>Let's Develop It</h3>
+                  <p>We're going to develop a "Trip Planner" app where we add activities and travel info</p>
+                  <p>Let's have the 'App' render another component - we'll call it the 'AppName' component</p>
+                </section>
+
+                <section>
+                  <h3>Let's Develop It - Creating a component</h3>
+                  <p>If you realize some of your code could be reused elsewhere, make it reusable by creating a component!</p>
+                  <ul>
+                    <li class="fragment">Create a new file in your <code>src</code> directory - AppName.js</li>
+                    <li class="fragment">Make sure to import React and Component:</li>
+                    <li class="fragment"><code>import React, { Component } from 'react';</code></li>
+                    <li class="fragment">Create a class that extends Component, with a <code>render</code> method that returns a JSX string</li>
+                    <li class="fragment"><code>Import</code> your component wherever you need it and render it with <code>&lt;AppName/&gt;</code></li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Repeating Elements</h3>
+                  <p>If you have an array of elements that you want to display in a uniform way (like in a <code>&lt;ul&gt;</code>), <code>map</code> lets you do that.</p>
+                  <p class="fragment">The <code>map</code> method gets two arguments: <br/>
+                    <code>(item, index)</code> - the <strong>item</strong> in the array, and its <strong>index</strong> (position) in the array.</p>
+
+<pre class="fragment"><code contenteditable class="jsx">
+const categories = ["accomodation", "adventure", "travel", "misc"];
+
+class CategoryList extends Component {
+  render() {
+    return (&lt;ul&gt;
+      {categories.map((category, i) =&gt; {
+        &lt;li&gt;{i}. {category}&lt;/li&gt;
+      })}
+    &lt;/ul&gt;);
+  }
+}
+</code></pre>
+
+
+                </section>
 
 
                 <section>
@@ -376,17 +415,38 @@ Meetup.propTypes = {
     }),
 }
 </code></pre>
-</section>
+                </section>
 
+                <section>
+                  <h3>Lifecycle Methods</h3>
+                  <p class="fragment">When you extend the React.Component class, you get access to handy methods</p>
+                  <p class="fragment">These are 'hooks' that allow you to run code at specific times during the component's lifecycle, such as</p>
+                  <ul>
+                    <li class="fragment">when the component is first rendered</li>
+                    <li class="fragment">whenever changes are made to the props or state</li>
+                    <li class="fragment">before a component is destroyed</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Lifecycle Methods (cont'd)</h3>
+                  <ul>
+                    <li class="fragment"><code>componentDidMount</code>: after an HTML node has mounted to the DOM - make API calls here</li>
+                    <li class="fragment"><code>shouldComponentUpdate</code>: after state or props have changed - if it returns false, no render will occur (prevent unnecessary rerendering)</li>
+                    <li class="fragment"><code>componentWillReceiveProps</code>: props for a component have changed, but rerender has not occurred yet</li>
+                    <li class="fragment"><code>componentWillUpdate</code>: state or props have changed and <code>shouldComponentUpdate</code> is true - prepare for updates</li>
+                    <li class="fragment"><code>componentDidUpdate</code>: component has updated - attach to DOM nodes</li>
+                    <li class="fragment"><code>componentWillUnmount</code>: Component is about to be removed from the DOM - do cleanup like removing timers or event listeners</li>
+                  </ul>
+                </section>
 
                 <section>
                   <h3>State</h3>
                   <p>Use <code>state</code> when your component needs to keep track of something</p>
                   <ul>
-                    <li>Value of a text input</li>
-                    <li>Is a menu <strong>open</strong> or <strong>closed</strong>?</li>
-                    <li>The items in a grocery list app</li>
-                    <li>The response from the Meetup API</li>
+                    <li><strong>Value</strong> of the text input</li>
+                    <li>The <strong>list of items</strong> in the trip planner app (could be things we add in a session, or grabbed from an API)</li>
+                    <li>When adding an item: which tags have you selected?</li>
                   </ul>
                 </section>
 
@@ -394,8 +454,6 @@ Meetup.propTypes = {
                   <h3>Setting Up State</h3>
                   <ul>
                     <li class="fragment">Each React component has a <code>constructor</code> function that gets called before it renders - here's where your initial state should be set.</li>
-
-                    <li class="fragment">Bonus: Remember Object-oriented programming? Our new component will <strong>inherit</strong> from React's <code>Component</code> <strong>prototype,</strong> and get custom methods and properties that we define.</li>
                   </ul>
 
 
@@ -404,9 +462,22 @@ class App extends Component {
   constructor(props) {
     super();
     this.state = {
-       meetups: []
+      entries: []
     }
   }
+  render() { return &lt;div&gt;&lt;/div&gt;; }
+}
+
+class newEntry extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      tagsSelected: []
+      description: ''
+      date: ''
+    }
+  }
+  render() { return &lt;div&gt;&lt;/div&gt;; }
 }
 </code></pre>
 
@@ -415,31 +486,57 @@ class App extends Component {
                   <h3>Accessing state</h3>
 <pre class="fragment"><code contenteditable class="javascript">
   render() {
-    const { items, itemCount } = this.state;
+    const { entries } = this.state;
     return (
       <div className="items">
-        {items.map((item, index) => <div className='item'>{item}</div>)}
+        {entries.map((entry, index) => <div className='item'>{entry}</div>)}
       </div>
-      <input className='newItem' onEnterPress={this.addItem}>
+      <input className='newEntry' onEnterPress={this.addEntry}>
     );
   }
-  addItem = (e) => {
-    const { items } = this.state;
+  addEntry = (e) => {
+    const { entries } = this.state;
     items.push(e.value);
-    this.setState({ items: items });
+    this.setState({ entries: entries });
   }
 </code></pre>
-                </section>
+                                </section>
 
-                <section>
-                  <h2>Optional Practice</h2>
-                  <ul>
-                    <li>Use the Spotify API to create a list of Spotify artists</li>
-                    <li>https://api.spotify.com/v1/search?q=ARTIST NAME HERE&type=artist</li>
-                    <li>Use <code>fetch</code> instead of <code>fetchJsonp</code>.</li>
-                    <li>Notice how in our Meetup app, we had to deconstruct the response from the API and pull out the 'results' key - you'll have to do something similar if the Spotify API returns metadata.</li>
-                    <li>Create a new <code>Artist</code> component that renders each individual fact.</li></ul>
-                </section>
+                                <section>
+                                  <h3>Stateless Functional Components</h3>
+                                  <p>Some components <strong>don't need lifecycle methods</strong>.</p>
+                                  <ul>
+                                    <li class="fragment">They take <strong>props</strong>, render a component, and the only thing they have to do is rerender if the props change.</li>
+                                    <li class="fragment">These components are <strong>functions</strong> that take <strong>props</strong> as parameters and return a <strong>JSX</strong> string.</li>
+                                    <li class="fragment">As the name suggests - no <code>state</code> and no <code>this</code> for these components.</li>
+                                  </ul>
+                                </section>
+
+                                <section style="width: 150%; left: -75%;" >
+                                  <h3>Stateless Functional Components</h3>
+<pre class="fragment" style="width: 49%; float: left;"><code contenteditable class="javascript">
+class AppName extends Component {
+  render() {
+    const { name } = this.props;
+      return (&lt;div className="app-name"&gt;
+        { name }
+      &lt;/div&gt;);
+  }
+}
+export default AppName;
+</code></pre>
+
+<pre class="fragment" style="width: 49%; float: right;"><code contenteditable class="javascript">
+export default function AppName(props) {
+  const { name } = props;
+    return (&lt;div className="app-name"&gt;
+      { name }
+    &lt;/div&gt;);
+}
+</code></pre>
+</section>
+
+
 
 			</div>
   		<footer>
