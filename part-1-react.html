@@ -385,6 +385,7 @@ class CategoryList extends Component {
                     <img src="img/cat_stretch.jpg" alt="kitty!" />
                 </section>
 
+
                 <section>
                                  <h3>Style: a special prop</h3>
                                  <p>React components accept a special <code>style</code> prop, which can be used in place of SASS/CSS stylesheets.</p>
@@ -400,7 +401,38 @@ class CategoryList extends Component {
                 <section>
                                <h3>Style: a special prop</h3>
                                <img src="img/style-prop.png" alt="Style prop" />
-                             </section>
+                </section>
+
+                <section>
+                  <h3><code>children</code>: another special prop</h3>
+                  <p>You can make reusable presentation/wrapper components that take child elements</p>
+                  <p>For example - modals! They all have some behavior and content in common:</p>
+                  <ul>
+                    <li>an 'X' button on the top right corner</li>
+                    <li>a title across the top</li>
+                    <li>should close when the user clicks outside them</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3><code>children</code>, cont'd</h3>
+                  <pre class="fragment"><code contenteditable class="javascript">
+class Modal extends Component {
+  render() {
+  const { title, children } = this.props;
+  return (
+    <div className='modal'>
+      <div className="modal__title">
+        <div className="modal__title--text">{title}</div>
+        <div className="modal__title-close">X</div>
+      </div>
+      <div className="modal__content">{children}</div>
+    </div>
+  );
+
+}
+</code></pre>
+                </section>
 
                 <section>
                   <h3>PropTypes</h3>
